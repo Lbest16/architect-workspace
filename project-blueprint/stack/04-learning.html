@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learn — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>What To Learn First</h1>
+    <p>The order to pick these technologies up in, tied to the build order in <a href="../architecture.md">architecture.md</a> — schema before server, server before screen, and nothing touches the LLM until Phase 2.</p>
+  </div>
+
+  <div id="fig-ladder"></div>
+
+  <div class="card">
+    <h2>Learning order</h2>
+    <ol class="ladder-list" id="ladder-list"></ol>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("ladder-list").innerHTML = STACK.learningOrder.map(l => `
+    <li data-searchable="${Site.esc(l.tech + ' ' + l.reason + ' ' + l.phase)}">
+      <div class="ladder-num">${l.step}</div>
+      <div class="ladder-text">
+        <strong>${Site.esc(l.tech)}</strong>
+        <span>${Site.esc(l.reason)}</span><br>
+        <span class="phase-tag">${Site.esc(l.phase)}</span>
+      </div>
+    </li>`).join("");
+
+  Site.mountFigure("fig-ladder", {
+    title: "Learning order as a staircase",
+    type: "svg",
+    interpretation: "Each step builds on the one before it — the database schema has to exist before the API can read from it, and nothing calls the LLM Provider until the day-one promise in Phase 2.",
+    draw: Site.svgDraw(Site.Illustrations.learningLadder(false))
+  });
+
+  Site.initAll("learning");
+</script>
+</body>
+</html>

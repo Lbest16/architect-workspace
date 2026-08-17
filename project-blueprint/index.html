@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clienteling Assistant — Blueprint Command Center</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="cc-hero">
+    <div class="tagline" id="tagline"></div>
+    <h1 id="hero-title"></h1>
+    <p class="idea" id="hero-idea"></p>
+  </div>
+
+  <div class="card" style="border-left:4px solid var(--accent)">
+    <h2>What day one must do well</h2>
+    <p id="day-one-text" style="font-size:1.05rem"></p>
+  </div>
+
+  <h2 style="margin-top:36px">Browse the blueprint</h2>
+  <div class="tile-grid" id="tile-grid"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("tagline").textContent = BLUEPRINT.meta.tagline;
+  document.getElementById("hero-title").textContent = BLUEPRINT.meta.title;
+  document.getElementById("hero-idea").textContent = BLUEPRINT.idea;
+  document.getElementById("day-one-text").textContent = BLUEPRINT.dayOne;
+  Site.initAll(null);
+  Site.renderCommandCenter();
+</script>
+</body>
+</html>

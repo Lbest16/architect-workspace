@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coverage — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Coverage</h1>
+    <p>What day one actually covers versus what's deliberately deferred. If Search or Ask comes up empty on a topic, this is usually why.</p>
+  </div>
+
+  <div id="fig-grid"></div>
+  <div id="fig-chart"></div>
+
+  <div class="card">
+    <h2>Coverage detail</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Capability</th><th>Status</th><th>Phase</th></tr></thead>
+        <tbody id="coverage-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.getElementById("coverage-body").innerHTML = BLUEPRINT.coverage.map(c => `
+    <tr data-searchable="${Site.esc(c.capability + ' ' + c.status + ' ' + c.phase)}">
+      <td>${Site.esc(c.capability)}</td>
+      <td><span class="pill pill-${c.status === "covered" ? "good" : "warning"}">${Site.esc(c.status)}</span></td>
+      <td class="muted">${Site.esc(c.phase)}</td>
+    </tr>`).join("");
+
+  Site.mountFigure("fig-grid", {
+    title: "Coverage grid",
+    type: "svg",
+    interpretation: "Green means it works on day one; amber means it's real, known, and intentionally scheduled for later.",
+    draw: Site.svgDraw(Site.Illustrations.coverageGrid(false))
+  });
+
+  const covered = BLUEPRINT.coverage.filter(c => c.status === "covered").length;
+  const deferred = BLUEPRINT.coverage.filter(c => c.status === "deferred").length;
+  Site.mountFigure("fig-chart", {
+    title: "Covered vs. deferred",
+    type: "chart",
+    interpretation: `${covered} of ${covered + deferred} capabilities implied by the idea ship on day one; the rest are named, not forgotten.`,
+    draw: Site.chartDraw(() => ({
+      type: "doughnut",
+      data: {
+        labels: ["Covered", "Deferred"],
+        datasets: [{ data: [covered, deferred], backgroundColor: [Site.cssVar("--good"), Site.cssVar("--warning")], borderWidth: 0 }]
+      },
+      options: { plugins: { legend: { position: "bottom", labels: { color: Site.cssVar("--text") } } } }
+    }))
+  });
+
+  Site.initAll("coverage");
+</script>
+</body>
+</html>

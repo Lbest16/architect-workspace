@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data Flow — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Data Flow</h1>
+    <p>One recommendation request, start to finish — what happens, in order.</p>
+  </div>
+
+  <div id="fig-ribbon"></div>
+
+  <div class="card">
+    <h2>Numbered walkthrough</h2>
+    <ol class="flow-steps" id="flow-list"></ol>
+  </div>
+
+  <div id="fig-sequence"></div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.getElementById("flow-list").innerHTML = BLUEPRINT.dataFlow.map(s => `
+    <li class="${s.touchesModel ? "touches-model" : ""}" data-searchable="${Site.esc(s.text)}">
+      <span class="flow-num">${s.step}</span>
+      <span class="flow-text">${Site.esc(s.text)}</span>
+    </li>`).join("");
+
+  Site.mountFigure("fig-ribbon", {
+    title: "Steps at a glance",
+    type: "svg",
+    interpretation: "Teal steps are the two moments this request actually reasons over meaning by calling the LLM Provider; grey steps are local reads, writes, and hand-offs.",
+    draw: Site.svgDraw(Site.Illustrations.stepsRibbon(false))
+  });
+
+  Site.mountFigure("fig-sequence", {
+    title: "Sequence diagram",
+    type: "mermaid",
+    interpretation: "The same ten steps, drawn as messages between the six components — useful for seeing exactly who's waiting on whom.",
+    draw: Site.mermaidDraw(BLUEPRINT.diagrams.sequence)
+  });
+
+  Site.initAll("data-flow");
+</script>
+</body>
+</html>

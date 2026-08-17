@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Orders Dashboard — Publish Incident Brief</title>
+<style>
+  .viz-root {
+    color-scheme: light;
+    --page:            #f9f9f7;
+    --surface-1:       #fcfcfb;
+    --text-primary:    #0b0b0b;
+    --text-secondary:  #52514e;
+    --text-muted:      #898781;
+    --gridline:        #e1e0d9;
+    --border:          rgba(11,11,11,0.10);
+    --status-critical: #d03b3b;
+    --status-good:     #0ca30c;
+    --status-critical-bg: #fbeceb;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) .viz-root {
+      color-scheme: dark;
+      --page:            #0d0d0d;
+      --surface-1:       #1a1a19;
+      --text-primary:    #ffffff;
+      --text-secondary:  #c3c2b7;
+      --text-muted:      #898781;
+      --gridline:        #2c2c2a;
+      --border:          rgba(255,255,255,0.10);
+      --status-critical: #e66767;
+      --status-good:     #0ca30c;
+      --status-critical-bg: #2a1717;
+    }
+  }
+  :root[data-theme="dark"] .viz-root {
+    color-scheme: dark;
+    --page:            #0d0d0d;
+    --surface-1:       #1a1a19;
+    --text-primary:    #ffffff;
+    --text-secondary:  #c3c2b7;
+    --text-muted:      #898781;
+    --gridline:        #2c2c2a;
+    --border:          rgba(255,255,255,0.10);
+    --status-critical: #e66767;
+    --status-good:     #0ca30c;
+    --status-critical-bg: #2a1717;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  .viz-root {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--page);
+    color: var(--text-primary);
+    padding: 32px 20px 64px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: 26px;
+    margin: 0 0 20px;
+    font-weight: 700;
+  }
+
+  .banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--status-critical-bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--status-critical);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .banner .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--status-critical);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .banner .msg { font-size: 15px; color: var(--text-primary); }
+  .banner .msg strong { font-weight: 700; }
+
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .tile {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+  .tile .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+  .tile .value {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.1;
+  }
+  .tile .value.critical { color: var(--status-critical); }
+  .tile .sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  section {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  section h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--text-muted);
+    margin: 0 0 12px;
+  }
+  section p { margin: 0; font-size: 15px; line-height: 1.55; color: var(--text-primary); }
+  section ul { margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6; color: var(--text-primary); }
+  section li { margin-bottom: 6px; }
+  section li:last-child { margin-bottom: 0; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .field .label {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 4px;
+  }
+  .field .value {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .field .value.tbd { color: var(--text-muted); font-weight: 500; font-style: italic; }
+
+  .sources {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+  .sources code {
+    background: var(--gridline);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 11px;
+  }
+
+  @media (max-width: 720px) {
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .grid-2 { grid-template-columns: 1fr; }
+    .fields { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="viz-root">
+  <div class="wrap">
+    <p class="eyebrow">Incident Brief · Orders Dashboard</p>
+    <h1>Scheduled publish is blocked</h1>
+
+    <div class="banner">
+      <span class="badge">● BLOCKED</span>
+      <span class="msg">Data quality validation returned <strong>FAIL</strong> and the source pipeline run <strong>failed to load any data</strong>. Publish does not proceed.</span>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Quality checks failed</div>
+        <div class="value critical">4 / 8</div>
+        <div class="sub">key uniqueness, duplicates, required fields, numeric rules</div>
+      </div>
+      <div class="tile">
+        <div class="label">Rows loaded this run</div>
+        <div class="value critical">0</div>
+        <div class="sub">of 1,042 rows extracted</div>
+      </div>
+      <div class="tile">
+        <div class="label">Pipeline attempts</div>
+        <div class="value critical">2 / 2 failed</div>
+        <div class="sub">retry reproduced identical errors</div>
+      </div>
+      <div class="tile">
+        <div class="label">Rows stale (&gt;24h)</div>
+        <div class="value critical">7 / 12</div>
+        <div class="sub">one row ~75 hours old</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Business impact</h2>
+      <p>Not stated in the source reports — no dollar figure or revenue impact was provided, so none is estimated here. Known scope: the executive revenue dashboard and the weekly ops report are both blocked from refreshing.</p>
+    </section>
+
+    <div class="grid-2">
+      <section>
+        <h2>What we know</h2>
+        <ul>
+          <li>Data failed on a duplicate order ID with a duplicate row, a missing required region value, a negative revenue value, and widespread staleness.</li>
+          <li>Today's scheduled pipeline run failed twice and loaded zero new rows; the retry hit identical errors, so it will not self-resolve.</li>
+          <li>Root trace: an unrecognized region value not covered by current reference data, plus a colliding order ID at load time.</li>
+          <li>The negative revenue value and the exact source/timing of the reviewed data file are open questions, not yet explained.</li>
+        </ul>
+      </section>
+      <section>
+        <h2>What we do not know</h2>
+        <ul>
+          <li>Financial or business impact in dollar terms.</li>
+          <li>Root cause of the negative revenue value on the affected order.</li>
+          <li>Why the reviewed file has timestamps later than the failed run — provenance unconfirmed.</li>
+          <li>Assigned owner and expected resolution time.</li>
+        </ul>
+      </section>
+    </div>
+
+    <section>
+      <h2>Decision or action needed</h2>
+      <p>Keep the orders dashboard publish blocked. Do not re-trigger the pipeline until the region reference data/mapping is updated and the duplicate order ID is resolved upstream — retrying without a fix will reproduce the same failure.</p>
+    </section>
+
+    <section>
+      <h2>Ownership &amp; timing</h2>
+      <div class="fields">
+        <div class="field">
+          <div class="label">Owner</div>
+          <div class="value tbd">TBD — not stated in source reports</div>
+        </div>
+        <div class="field">
+          <div class="label">Next update</div>
+          <div class="value tbd">TBD — not stated in source reports</div>
+        </div>
+        <div class="field">
+          <div class="label">Recommendation</div>
+          <div class="value">BLOCK</div>
+        </div>
+      </div>
+    </section>
+
+    <p class="sources">
+      Sources: <code>data-quality-report.md</code> · <code>etl-triage-report.md</code> · <code>executive-dashboard-brief.md</code> (skill-lab/final-incident-package/)
+    </p>
+  </div>
+</div>
+</body>
+</html>

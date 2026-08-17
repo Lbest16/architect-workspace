@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Assumptions — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Assumptions</h1>
+    <p>What this design is betting on — and the one open question that would change it most.</p>
+  </div>
+
+  <div class="card">
+    <h2>Assumptions and their impact if wrong</h2>
+    <div id="assumption-list"></div>
+  </div>
+
+  <div id="fig-fork"></div>
+
+  <div class="card" data-searchable>
+    <h2 id="oq-question"></h2>
+    <div class="assumption-row">
+      <div><div class="label">If draft-only</div><p id="oq-a"></p></div>
+      <div><div class="label">If auto-send</div><p id="oq-b"></p></div>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("assumption-list").innerHTML = BLUEPRINT.assumptions.map(a => `
+    <div class="assumption-row" data-searchable="${Site.esc(a.text + ' ' + a.impact)}">
+      <div><div class="label">Assumption</div><p>${Site.esc(a.text)}</p></div>
+      <div><div class="label">Impact if wrong</div><p>${Site.esc(a.impact)}</p></div>
+    </div>`).join("");
+
+  const q = BLUEPRINT.openQuestion;
+  document.getElementById("oq-question").textContent = q.question;
+  document.getElementById("oq-a").textContent = q.branchA.detail;
+  document.getElementById("oq-b").textContent = q.branchB.detail;
+
+  Site.mountFigure("fig-fork", {
+    title: "The open question, as a fork",
+    type: "svg",
+    interpretation: "One question splits the design in two: answer it early, and the rest of the build order doesn't have to guess.",
+    draw: Site.svgDraw(Site.Illustrations.fork(false))
+  });
+
+  Site.initAll("assumptions");
+</script>
+</body>
+</html>

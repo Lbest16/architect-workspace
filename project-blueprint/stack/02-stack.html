@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stack — Clienteling Assistant Recommendations</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>The Recommendations</h1>
+    <p>One real, current technology per component from <a href="../architecture.md">architecture.md</a>, plus what the data flow needs that the component list never named. Grouped by what kind of thing each one is.</p>
+  </div>
+
+  <div id="fig-topology"></div>
+
+  <div id="groups-host"></div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  function recCard(r) {
+    return `
+      <div class="rec-card" data-searchable="${Site.esc(r.component + ' ' + r.tech + ' ' + r.why + ' ' + (r.caveat || ''))}">
+        <div class="rec-top">
+          <span class="rec-component">${Site.esc(r.component)}</span>
+          ${r.fromFlow ? '<span class="pill pill-info">from the data flow</span>' : ''}
+          <span class="rec-tech">${Site.esc(r.tech)}</span>
+          ${Site.ratingPill(r.rating)}
+        </div>
+        <div class="rec-why">${Site.esc(r.why)}</div>
+        ${r.caveat ? `<div class="rec-caveat"><strong>Caveat</strong>${Site.esc(r.caveat)}</div>` : ""}
+        <div class="rec-prompt-inline">
+          <code>${Site.esc(r.prompt)}</code>
+          <button class="copy-btn" data-copy="${Site.esc(r.prompt)}">Copy prompt</button>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById("groups-host").innerHTML = STACK.groups.map(g => {
+    const items = STACK.recommendations.filter(r => r.group === g.id);
+    if (!items.length) return "";
+    return `
+      <div class="rec-group card">
+        <h2>${Site.esc(g.label)}</h2>
+        <p class="group-blurb">${Site.esc(g.blurb)}</p>
+        ${items.map(recCard).join("")}
+      </div>`;
+  }).join("");
+
+  Site.mountFigure("fig-topology", {
+    title: "What runs on your machine vs. always somebody else's",
+    type: "svg",
+    interpretation: "Everything on the left is code and data you fully control and could run entirely offline during development. The LLM Provider is the one piece that can never be yours — it's always a network call to Anthropic's servers.",
+    draw: Site.svgDraw(Site.Illustrations.topology(false))
+  });
+
+  Site.initAll("stack");
+</script>
+</body>
+</html>

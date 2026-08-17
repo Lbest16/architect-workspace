@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summary — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Fit Key &amp; Headline</h1>
+    <p>What each rating means, judged against this project's actual scale — one advisor, one store, day one — and the one paragraph on where this stack is most likely to break.</p>
+  </div>
+
+  <div class="card">
+    <h2>The fit-rating key</h2>
+    <div class="fit-legend" id="fit-legend"></div>
+  </div>
+
+  <div class="card headline-card">
+    <h2>Where this stack is most likely to break</h2>
+    <p id="headline-text" style="font-size:1.05rem"></p>
+  </div>
+
+  <div id="fig-bands"></div>
+  <div id="fig-bar"></div>
+
+  <div class="card">
+    <h2>Least confident calls</h2>
+    <table>
+      <thead><tr><th>Decision</th><th>Rating</th><th>Why it's a close call</th></tr></thead>
+      <tbody id="least-confident-body"></tbody>
+    </table>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("fit-legend").innerHTML = STACK.fitKey.map(f => `
+    <div class="fit-card ${f.rating}" data-searchable="${Site.esc(f.label + ' ' + f.meaning)}">
+      <div class="fit-icon">${f.icon}</div>
+      <h3>${Site.esc(f.label)}</h3>
+      <p>${Site.esc(f.meaning)}</p>
+    </div>`).join("");
+
+  document.getElementById("headline-text").textContent = STACK.headline;
+
+  document.getElementById("least-confident-body").innerHTML = STACK.leastConfident.map(l => `
+    <tr data-searchable="${Site.esc(l.title + ' ' + l.detail)}">
+      <td><strong>${Site.esc(l.title)}</strong></td>
+      <td>${Site.ratingPill(l.rating)}</td>
+      <td class="muted">${Site.esc(l.detail)}</td>
+    </tr>`).join("");
+
+  Site.mountFigure("fig-bands", {
+    title: "The whole stack, coloured by fit rating",
+    type: "svg",
+    interpretation: "Every recommendation, stacked in architecture order. Green bands are settled choices; the amber and red bands are where you should slow down and read the caveat.",
+    draw: Site.svgDraw(Site.Illustrations.stackBands(false))
+  });
+
+  Site.mountFigure("fig-bar", {
+    title: "Fit ratings, proportionally",
+    type: "svg",
+    interpretation: "Most of this stack is a safe, ordinary choice for a single-advisor tool. The recommendations flagged for careful consideration are called out below the bar.",
+    draw: Site.svgDraw(Site.Illustrations.proportionalBar(false))
+  });
+
+  Site.initAll("summary");
+</script>
+</body>
+</html>

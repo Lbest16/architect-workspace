@@ -1,0 +1,21 @@
+2026-08-03 03:00:01 INFO  [orchestrator] Starting scheduled run job=orders_pipeline run_id=20260803-0300
+2026-08-03 03:00:02 INFO  [extract] Reading source table raw.orders_staging
+2026-08-03 03:00:05 INFO  [extract] Extract complete rows_read=1042
+2026-08-03 03:00:06 INFO  [transform] Applying schema validation against contract v3
+2026-08-03 03:00:06 ERROR [transform] Schema mismatch on column 'region': expected enum[US-East,US-West,EU-West,EU-Central,APAC], found value 'Northeast' at row_offset=214 order_id=ORD1042
+2026-08-03 03:00:06 WARN  [transform] 37 rows failed region enum validation; routing to stg.orders_quarantine
+2026-08-03 03:00:07 ERROR [transform] Mapping step 'region_code_map' failed: KeyError 'Northeast' not found in region_code_map.yaml (37 rows affected)
+2026-08-03 03:00:07 ERROR [transform] Conversion step 'cast_revenue_decimal' failed for 3 rows: InvalidOperation converting '' to Decimal(10,2) (order_ids=ORD1058,ORD1071,ORD1090)
+2026-08-03 03:00:08 WARN  [transform] Transform completed with errors: 40 of 1042 rows dropped/quarantined (3.8%)
+2026-08-03 03:00:09 INFO  [load] Loading 1002 rows into warehouse.orders
+2026-08-03 03:00:11 ERROR [load] Load failed: duplicate key violation on orders.order_id (value=ORD1010) — unique constraint orders_pkey
+2026-08-03 03:00:11 INFO  [orchestrator] Load step failed; initiating automatic retry (attempt 2 of 2, backoff=180s)
+2026-08-03 03:03:11 INFO  [orchestrator] Retry attempt 2 started run_id=20260803-0300-retry2
+2026-08-03 03:03:12 INFO  [extract] Reading source table raw.orders_staging
+2026-08-03 03:03:15 INFO  [extract] Extract complete rows_read=1042
+2026-08-03 03:03:15 ERROR [transform] Schema mismatch on column 'region': expected enum[US-East,US-West,EU-West,EU-Central,APAC], found value 'Northeast' at row_offset=214 order_id=ORD1042
+2026-08-03 03:03:16 ERROR [transform] Mapping step 'region_code_map' failed: KeyError 'Northeast' not found in region_code_map.yaml (37 rows affected)
+2026-08-03 03:03:17 INFO  [load] Loading 1002 rows into warehouse.orders
+2026-08-03 03:03:18 ERROR [load] Load failed: duplicate key violation on orders.order_id (value=ORD1010) — unique constraint orders_pkey
+2026-08-03 03:03:18 ERROR [orchestrator] Retry attempt 2 failed — identical errors to attempt 1; no automatic remediation applied
+2026-08-03 03:03:18 ERROR [orchestrator] Run run_id=20260803-0300 marked FAILED after 2 attempts. Pipeline halted; downstream refresh of warehouse.orders skipped.

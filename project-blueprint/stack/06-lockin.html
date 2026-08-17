@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lock-in — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>How Hard To Undo</h1>
+    <p>Not every decision here costs the same to reverse later. The database is the anchor; almost everything else is a contained, swappable layer.</p>
+  </div>
+
+  <div id="fig-lockin"></div>
+
+  <div class="card">
+    <h2>Decision by decision</h2>
+    <div id="lockin-list"></div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  const DIFF_LABEL = { easy: "Easy to undo", medium: "Medium to undo", hard: "Hard to undo" };
+  const DIFF_PILL = { easy: "great", medium: "goodfit", hard: "careful" };
+
+  document.getElementById("lockin-list").innerHTML = STACK.lockIn.map(l => `
+    <div class="lockin-row" data-searchable="${Site.esc(l.component + ' ' + l.difficulty + ' ' + l.reason)}">
+      <div>
+        <div class="label">${Site.esc(l.component)}</div>
+        <span class="pill pill-${DIFF_PILL[l.difficulty]}">${Site.esc(DIFF_LABEL[l.difficulty])}</span>
+        <div class="lockin-bar-track"><div class="lockin-bar-fill ${l.difficulty}"></div></div>
+      </div>
+      <div class="muted">${Site.esc(l.reason)}</div>
+    </div>`).join("");
+
+  Site.mountFigure("fig-lockin", {
+    title: "Lock-in scale, decision by decision",
+    type: "svg",
+    interpretation: "The Client Data Store carries the most weight on this page — it holds the system's core asset, client history, and a live migration is the riskiest move available. Everything else is a thinner, more replaceable layer.",
+    draw: Site.svgDraw(Site.Illustrations.lockInScale(false))
+  });
+
+  Site.initAll("lockin");
+</script>
+</body>
+</html>

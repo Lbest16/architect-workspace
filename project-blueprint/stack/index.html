@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clienteling Assistant — Stack Command Center</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="cc-hero">
+    <div class="tagline" id="tagline"></div>
+    <h1 id="hero-title"></h1>
+    <p class="idea" id="hero-subtitle"></p>
+    <a class="cc-crossref" href="../index.html">&#8962; Back to the Architecture Blueprint</a>
+  </div>
+
+  <div class="card headline-card">
+    <h2>Where this stack is most likely to break</h2>
+    <p id="headline-text" style="font-size:1.05rem"></p>
+  </div>
+
+  <h2 style="margin-top:36px">Browse the stack</h2>
+  <div class="tile-grid" id="tile-grid"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("tagline").textContent = STACK.meta.tagline;
+  document.getElementById("hero-title").textContent = STACK.meta.title;
+  document.getElementById("hero-subtitle").textContent = STACK.meta.subtitle;
+  document.getElementById("headline-text").textContent = STACK.headline;
+  Site.initAll(null);
+  Site.renderCommandCenter();
+</script>
+</body>
+</html>

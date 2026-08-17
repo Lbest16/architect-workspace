@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not Covered — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>What This Design Does Not Cover</h1>
+    <p>An honest list. None of these are hidden — each one is deferred on purpose, and each has a home on the <a href="06-coverage.html">Coverage</a> page.</p>
+  </div>
+
+  <div class="card">
+    <ul id="not-covered-list" style="font-size:1.02rem; line-height:2;"></ul>
+  </div>
+
+  <div class="card muted" data-searchable>
+    <p>If your next question is “when does this get built,” it doesn't have a scheduled phase yet — see the <a href="05-build-order.html">Build Order</a> page, Phase 5, for where it would slot in once prioritized.</p>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("not-covered-list").innerHTML = BLUEPRINT.notCovered.map(t =>
+    `<li data-searchable="${Site.esc(t)}">${Site.esc(t)}</li>`).join("");
+
+  Site.initAll("not-covered");
+</script>
+</body>
+</html>

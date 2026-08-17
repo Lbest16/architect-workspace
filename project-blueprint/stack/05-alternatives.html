@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alternatives — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Alternatives Considered</h1>
+    <p>What else was on the table for each component, and why it lost — mostly a matter of scale, not quality.</p>
+  </div>
+
+  <div class="card">
+    <div id="alt-list"></div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("alt-list").innerHTML = STACK.alternatives.map(a => `
+    <div class="alt-row" data-searchable="${Site.esc(a.component + ' ' + a.chosen + ' ' + a.alternative + ' ' + a.whyNot)}">
+      <div class="muted" style="font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;margin-bottom:4px">${Site.esc(a.component)}</div>
+      <div class="alt-vs">
+        <span class="alt-chosen">&#10003; ${Site.esc(a.chosen)}</span>
+        <span class="muted">over</span>
+        <span class="alt-other">${Site.esc(a.alternative)}</span>
+      </div>
+      <div>${Site.esc(a.whyNot)}</div>
+    </div>`).join("");
+
+  Site.initAll("alternatives");
+</script>
+</body>
+</html>

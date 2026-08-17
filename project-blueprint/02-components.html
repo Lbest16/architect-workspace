@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Components — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Components</h1>
+    <p>Every piece this idea actually requires — each one traced back to specific words in the paragraph, not a generic template.</p>
+  </div>
+
+  <div id="fig-layers"></div>
+
+  <div class="card">
+    <h2>Component reference</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Component</th><th>Layer</th><th>What it does here</th><th>Required by</th></tr></thead>
+        <tbody id="comp-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  const KIND_LABEL = { frontend: "info", backend: "neutral", database: "neutral", ai: "accent", external: "warning" };
+  document.getElementById("comp-body").innerHTML = BLUEPRINT.components.map(c => `
+    <tr data-searchable="${Site.esc(c.name + ' ' + c.sentence + ' ' + c.why)}">
+      <td><strong>${Site.esc(c.name)}</strong>${c.dayOneOwner ? ' <span class="pill pill-accent">day-one owner</span>' : ""}</td>
+      <td><span class="pill pill-${KIND_LABEL[c.kind]}">${Site.esc(c.layer)}</span></td>
+      <td>${Site.esc(c.sentence)}</td>
+      <td class="muted">${c.triggerWords.map(w => `“${Site.esc(w)}”`).join(", ")}</td>
+    </tr>`).join("");
+
+  Site.mountFigure("fig-layers", {
+    title: "Components grouped by layer",
+    type: "svg",
+    interpretation: "Each box is a real component this idea needs, grouped by the role it plays — interface, coordination, data, intelligence, or an external dependency.",
+    draw: Site.svgDraw(Site.Illustrations.layers(false))
+  });
+
+  Site.initAll("components");
+</script>
+</body>
+</html>

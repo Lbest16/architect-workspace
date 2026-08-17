@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Order — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Build Order</h1>
+    <p>The phases, in order, and exactly what each one has to prove before the next begins.</p>
+  </div>
+
+  <div id="fig-timeline"></div>
+  <div id="fig-gantt"></div>
+
+  <div class="card">
+    <h2>Phase detail</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Phase</th><th>Builds</th><th>Proves</th></tr></thead>
+        <tbody id="phase-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.getElementById("phase-body").innerHTML = BLUEPRINT.buildPhases.map((p, i) => `
+    <tr data-searchable="${Site.esc(p.name + ' ' + p.builds + ' ' + p.proves)}">
+      <td><strong>${i + 1}. ${Site.esc(p.name)}</strong>${p.critical ? ' <span class="pill pill-accent">make-or-break</span>' : ""}</td>
+      <td>${Site.esc(p.builds)}</td>
+      <td>${Site.esc(p.proves)}</td>
+    </tr>`).join("");
+
+  Site.mountFigure("fig-timeline", {
+    title: "Phases as a proportional timeline",
+    type: "svg",
+    interpretation: "The starred, teal phase is the one this design can't skip or defer — it's the phase that proves the day-one promise actually works.",
+    draw: Site.svgDraw(Site.Illustrations.phaseTimeline(false))
+  });
+
+  Site.mountFigure("fig-gantt", {
+    title: "Build order (Gantt)",
+    type: "mermaid",
+    interpretation: "Each phase depends on the one before it finishing — this is a sequence, not a set of parallel workstreams.",
+    draw: Site.mermaidDraw(BLUEPRINT.diagrams.gantt)
+  });
+
+  Site.initAll("build-order");
+</script>
+</body>
+</html>

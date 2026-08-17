@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Architecture — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>How It Fits Together</h1>
+    <p>Every component from the previous page, connected by what actually flows between them.</p>
+  </div>
+
+  <div id="fig-flowchart"></div>
+
+  <div class="card" data-searchable>
+    <h2>Reading the shapes</h2>
+    <table>
+      <tbody>
+        <tr><td style="width:40px"><span style="display:inline-block;width:22px;height:14px;border-radius:5px;background:var(--info-soft);border:1.5px solid var(--info)"></span></td><td>Rectangle — a service built for this project (the Advisor Console)</td></tr>
+        <tr><td><span style="display:inline-block;width:22px;height:14px;border-radius:5px;background:var(--neutral-soft);border:1.5px solid var(--neutral)"></span></td><td>Cylinder-style shape — a data store (Client Data Store, Product Catalog)</td></tr>
+        <tr><td><span style="display:inline-block;width:22px;height:14px;border-radius:5px;background:var(--accent-soft);border:1.5px solid var(--accent)"></span></td><td>Teal rectangle — the Recommendation &amp; Messaging Engine, the day-one owner</td></tr>
+        <tr><td><span style="display:inline-block;width:22px;height:14px;border-radius:5px;background:var(--warning-soft);border:1.5px solid var(--warning)"></span></td><td>Hexagon — the LLM Provider, a third party this design depends on</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  Site.mountFigure("fig-flowchart", {
+    title: "System architecture",
+    type: "mermaid",
+    interpretation: "An advisor's action in the Console travels through the API to the data stores and the Engine, out to the LLM Provider and back, and every approved message is written back as new client history.",
+    draw: Site.mermaidDraw(BLUEPRINT.diagrams.flowchart)
+  });
+
+  Site.initAll("architecture");
+</script>
+</body>
+</html>

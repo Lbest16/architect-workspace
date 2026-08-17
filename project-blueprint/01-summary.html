@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summary — Clienteling Assistant Blueprint</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>The Idea</h1>
+    <p>The project in one paragraph, and the one promise day one has to keep.</p>
+  </div>
+
+  <div class="card" data-searchable>
+    <h2>In the founder's words</h2>
+    <p id="idea-text" style="font-size:1.05rem"></p>
+  </div>
+
+  <div class="card" data-searchable style="border-left:4px solid var(--accent)">
+    <h2>What day one must do well</h2>
+    <p id="dayone-text" style="font-size:1.05rem"></p>
+    <p class="muted" id="dayone-owner"></p>
+  </div>
+
+  <div id="fig-pipeline"></div>
+
+  <div class="card">
+    <h2>What's excluded, and why</h2>
+    <p class="muted">Not every plausible piece of retail software belongs in a day-one design. These were left out because nothing in the idea asked for them.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Left out</th><th>Why</th></tr></thead>
+        <tbody id="excluded-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the blueprint"></div>
+
+<script src="assets/blueprint.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("idea-text").textContent = BLUEPRINT.idea;
+  document.getElementById("dayone-text").textContent = BLUEPRINT.dayOne;
+  const owner = BLUEPRINT.components.find(c => c.dayOneOwner);
+  document.getElementById("dayone-owner").textContent = `Guaranteed by: ${owner.name}.`;
+  document.getElementById("excluded-body").innerHTML = BLUEPRINT.excludedComponents.map(e =>
+    `<tr data-searchable><td><strong>${Site.esc(e.name)}</strong></td><td>${Site.esc(e.reason)}</td></tr>`).join("");
+
+  Site.mountFigure("fig-pipeline", {
+    title: "The idea as inputs, pipeline, output",
+    type: "svg",
+    interpretation: "Client history and preferences go in on the left; the engine in the middle does the thinking; ranked recommendations and a drafted message come out on the right.",
+    draw: Site.svgDraw(Site.Illustrations.pipeline(false))
+  });
+
+  Site.initAll("summary");
+</script>
+</body>
+</html>

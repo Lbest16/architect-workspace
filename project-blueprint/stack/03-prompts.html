@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prompts — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>Copy-Ready Prompts</h1>
+    <p>One prompt per recommendation, already naming this project, ready to paste into a later conversation to learn that technology properly.</p>
+  </div>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:22%">Component</th><th style="width:14%">Technology</th><th>Prompt</th></tr></thead>
+        <tbody id="prompts-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("prompts-body").innerHTML = STACK.recommendations.map(r => `
+    <tr class="prompt-row" data-searchable="${Site.esc(r.component + ' ' + r.tech + ' ' + r.prompt)}">
+      <td><strong>${Site.esc(r.component)}</strong></td>
+      <td class="muted">${Site.esc(r.tech)}</td>
+      <td>
+        <div class="prompt-cell">
+          <code class="prompt-text">${Site.esc(r.prompt)}</code>
+          <button class="copy-btn" data-copy="${Site.esc(r.prompt)}">&#128203; Copy prompt</button>
+        </div>
+      </td>
+    </tr>`).join("");
+
+  Site.initAll("prompts");
+</script>
+</body>
+</html>

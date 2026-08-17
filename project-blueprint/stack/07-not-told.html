@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not Told — Clienteling Assistant Stack</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<div id="scroll-progress"></div>
+<nav id="top-nav" aria-label="Section navigation"></nav>
+
+<main class="container">
+  <div class="breadcrumbs" id="breadcrumbs"></div>
+  <div class="page-header">
+    <h1>What This Doesn't Tell You</h1>
+    <p>An honest list of what a technology recommendation cannot answer for you — read this before assuming the stack decision is the only decision left.</p>
+  </div>
+
+  <div class="card">
+    <ul class="not-told-list" id="not-told-list"></ul>
+  </div>
+
+  <div id="footer-nav"></div>
+</main>
+
+<button id="back-to-top" class="icon-btn" aria-label="Back to top">&#8593;</button>
+<button id="ask-toggle">&#128172; Ask</button>
+<div id="ask-panel" role="dialog" aria-label="Ask the stack"></div>
+
+<script src="assets/stack.js"></script>
+<script src="assets/site.js"></script>
+<script>
+  document.getElementById("not-told-list").innerHTML = STACK.notTold.map(t => `
+    <li data-searchable="${Site.esc(t)}"><span class="gap-icon">?</span><span>${Site.esc(t)}</span></li>`).join("");
+
+  Site.initAll("not-told");
+</script>
+</body>
+</html>
