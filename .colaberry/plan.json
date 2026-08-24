@@ -1,0 +1,619 @@
+{
+  "schema_version": 2,
+  "project_name": "Luxury Client Intelligence Agent",
+  "descriptor": "An AI-powered tool for luxury retail client advisors to manage client relationships by identifying clienteling opportunities, recommending products, and generating personalized messages.",
+  "requirements": [
+    {
+      "id": "REQ-001",
+      "kind": "FUNC",
+      "cluster": "Opportunity Detection",
+      "priority": "must",
+      "statement": "The system must identify the strongest clienteling opportunity from a given client profile, purchase history, preferences, and product catalog.",
+      "fulfilled_by": [
+        "STORY-001"
+      ]
+    },
+    {
+      "id": "REQ-002",
+      "kind": "FUNC",
+      "cluster": "Opportunity Detection",
+      "priority": "must",
+      "statement": "The system must explain the reasoning behind each clienteling opportunity recommendation.",
+      "fulfilled_by": [
+        "STORY-001"
+      ]
+    },
+    {
+      "id": "REQ-003",
+      "kind": "FUNC",
+      "cluster": "Product Recommendation",
+      "priority": "must",
+      "statement": "The system must recommend an appropriate product for the identified clienteling opportunity.",
+      "fulfilled_by": [
+        "STORY-003"
+      ]
+    },
+    {
+      "id": "REQ-004",
+      "kind": "FUNC",
+      "cluster": "Message Generation",
+      "priority": "must",
+      "statement": "The system must generate an editable personalized outreach message for the advisor.",
+      "fulfilled_by": [
+        "STORY-002"
+      ]
+    },
+    {
+      "id": "REQ-005",
+      "kind": "FUNC",
+      "cluster": "Message Generation",
+      "priority": "must",
+      "statement": "The system must allow advisors to review and edit AI-generated messages before sending.",
+      "fulfilled_by": [
+        "STORY-002"
+      ]
+    },
+    {
+      "id": "REQ-006",
+      "kind": "CONSTRAINT",
+      "cluster": "Data Management",
+      "priority": "must",
+      "statement": "The system must use fictional/sample data for client profiles, preferences, purchase history, product catalog, and availability.",
+      "fulfilled_by": []
+    },
+    {
+      "id": "REQ-007",
+      "kind": "SAFE",
+      "cluster": "Data Management",
+      "priority": "must",
+      "statement": "The system must protect client privacy by not using real customer information.",
+      "fulfilled_by": [
+        "STORY-006"
+      ]
+    },
+    {
+      "id": "REQ-008",
+      "kind": "FUNC",
+      "cluster": "Data Management",
+      "priority": "must",
+      "statement": "The system must persistently store information that must survive a session.",
+      "fulfilled_by": [
+        "STORY-005"
+      ]
+    },
+    {
+      "id": "REQ-009",
+      "kind": "SAFE",
+      "cluster": "Security",
+      "priority": "must",
+      "statement": "The system must follow least-privilege principles for tools and permissions.",
+      "fulfilled_by": [
+        "STORY-007"
+      ]
+    },
+    {
+      "id": "REQ-010",
+      "kind": "FUNC",
+      "cluster": "User Interface",
+      "priority": "must",
+      "statement": "The system must clearly distinguish facts from AI-generated recommendations.",
+      "fulfilled_by": [
+        "STORY-008"
+      ]
+    },
+    {
+      "id": "REQ-011",
+      "kind": "FUNC",
+      "cluster": "User Interface",
+      "priority": "must",
+      "statement": "The system must provide a user interface for luxury retail sales advisors.",
+      "fulfilled_by": [
+        "STORY-004"
+      ]
+    },
+    {
+      "id": "REQ-012",
+      "kind": "NFR",
+      "cluster": "Scalability",
+      "priority": "should",
+      "statement": "The system must be designed to scale for future expansion.",
+      "fulfilled_by": [
+        "STORY-009"
+      ]
+    },
+    {
+      "id": "REQ-013",
+      "kind": "CONSTRAINT",
+      "cluster": "AI Utilization",
+      "priority": "must",
+      "statement": "The system must use AI for semantic understanding, ranking, recommendation, or generation where needed.",
+      "fulfilled_by": [
+        "STORY-008"
+      ]
+    },
+    {
+      "id": "REQ-014",
+      "kind": "FUNC",
+      "cluster": "Project Planning",
+      "priority": "must",
+      "statement": "The system must provide a component list, data model, and data flow analysis before implementation.",
+      "fulfilled_by": [
+        "STORY-010"
+      ]
+    },
+    {
+      "id": "REQ-015",
+      "kind": "SAFE",
+      "cluster": "Security",
+      "priority": "must",
+      "statement": "The system must include security and privacy considerations in its architecture.",
+      "fulfilled_by": [
+        "STORY-006"
+      ]
+    },
+    {
+      "id": "REQ-016",
+      "kind": "SAFE",
+      "cluster": "Message Generation",
+      "priority": "must",
+      "statement": "The system must queue drafts for human approval and never auto-send messages.",
+      "fulfilled_by": [
+        "STORY-011"
+      ]
+    },
+    {
+      "id": "REQ-017",
+      "kind": "CONSTRAINT",
+      "cluster": "Data Management",
+      "priority": "must",
+      "statement": "The system must use realistic fictional sample data for 10 clients, including preferences, purchase history, and product catalog.",
+      "fulfilled_by": []
+    },
+    {
+      "id": "REQ-018",
+      "kind": "FUNC",
+      "cluster": "Project Planning",
+      "priority": "must",
+      "statement": "The system must provide a recommended build order and risk assessment before implementation.",
+      "fulfilled_by": [
+        "STORY-010"
+      ]
+    }
+  ],
+  "releases": [
+    {
+      "key": "r0",
+      "demo": "Show the system identifying a clienteling opportunity, recommending a product, and generating an editable message with reasoning.",
+      "goal": "Establish the core functionality with a focus on opportunity detection and message generation.",
+      "name": "Initial Setup and Core Functionality",
+      "week_end": 2,
+      "week_start": 0,
+      "story_ids": [
+        "STORY-001",
+        "STORY-002",
+        "STORY-003"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r1",
+      "demo": "Demonstrate the user interface for advisors and data persistence across sessions.",
+      "goal": "Improve the user interface and ensure data management practices are in place.",
+      "name": "Enhanced User Interface and Data Management",
+      "week_end": 4,
+      "week_start": 2,
+      "story_ids": [
+        "STORY-004",
+        "STORY-005"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r2",
+      "demo": "Showcase the system's privacy protection and least-privilege access controls.",
+      "goal": "Implement security and privacy features to protect client data.",
+      "name": "Security and Privacy Features",
+      "week_end": 5,
+      "week_start": 4,
+      "story_ids": [
+        "STORY-006",
+        "STORY-007",
+        "STORY-011"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r3",
+      "demo": "Demonstrate AI-driven recommendations and discuss scalability plans.",
+      "goal": "Enhance AI capabilities and prepare the system for future scalability.",
+      "name": "AI Utilization and Scalability",
+      "week_end": 6,
+      "week_start": 5,
+      "story_ids": [
+        "STORY-008",
+        "STORY-009"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    },
+    {
+      "key": "r4",
+      "demo": "Present the final architecture, risk assessment, and recommended build order.",
+      "goal": "Finalize project planning and make necessary adjustments based on feedback.",
+      "name": "Project Planning and Final Adjustments",
+      "week_end": 8,
+      "week_start": 6,
+      "story_ids": [
+        "STORY-010"
+      ],
+      "starts_on": null,
+      "ends_on": null,
+      "is_demo_target": false
+    }
+  ],
+  "stories": [
+    {
+      "id": "STORY-001",
+      "title": "Identify Clienteling Opportunity",
+      "release": "r0",
+      "fulfills": [
+        "REQ-001",
+        "REQ-002"
+      ],
+      "narrative": "As a luxury retail advisor, I want to identify the strongest clienteling opportunity, so that I can prioritize my client interactions effectively.",
+      "acceptance": [
+        "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
+        "Given incomplete client data, When the system attempts analysis, Then it provides a meaningful error message.",
+        "Trust: The system logs the reasoning for each opportunity identified."
+      ],
+      "blocked_by": [],
+      "owner_agent": "Development Team",
+      "failure_paths": [
+        "Data missing for client profile",
+        "Invalid purchase history format",
+        "AI model fails to load",
+        "Opportunity detection timeout",
+        "Incorrect opportunity identified"
+      ],
+      "task_guidance": "Implement the opportunity detection algorithm using the fictional dataset.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-002",
+      "title": "Generate Personalized Outreach Message",
+      "release": "r0",
+      "fulfills": [
+        "REQ-004",
+        "REQ-005"
+      ],
+      "narrative": "As a luxury retail advisor, I want to receive a personalized outreach message, so that I can communicate effectively with my clients.",
+      "acceptance": [
+        "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
+        "Given an invalid opportunity, When the system attempts to generate a message, Then it provides a meaningful error message.",
+        "Trust: The system logs all generated messages for audit purposes."
+      ],
+      "blocked_by": [],
+      "owner_agent": "Development Team",
+      "failure_paths": [
+        "Message template not found",
+        "AI fails to generate message",
+        "Message exceeds character limit",
+        "Invalid personalization data",
+        "Message generation timeout"
+      ],
+      "task_guidance": "Develop the message generation component ensuring messages are editable.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-003",
+      "title": "Recommend Product for Opportunity",
+      "release": "r0",
+      "fulfills": [
+        "REQ-003"
+      ],
+      "narrative": "As a luxury retail advisor, I want to receive a product recommendation, so that I can suggest relevant products to my clients.",
+      "acceptance": [
+        "Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.",
+        "Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.",
+        "Trust: The system logs the reasoning for each product recommendation."
+      ],
+      "blocked_by": [],
+      "owner_agent": "Development Team",
+      "failure_paths": [
+        "Product catalog not loaded",
+        "No matching products found",
+        "AI model fails to recommend",
+        "Recommendation timeout",
+        "Incorrect product recommended"
+      ],
+      "task_guidance": "Implement product recommendation logic using the fictional product catalog.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-004",
+      "title": "Develop User Interface for Advisors",
+      "release": "r1",
+      "fulfills": [
+        "REQ-011"
+      ],
+      "narrative": "As a luxury retail advisor, I want a user-friendly interface, so that I can easily interact with the system.",
+      "acceptance": [
+        "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
+        "Given a UI component fails to load, When an advisor accesses the system, Then a fallback UI is displayed.",
+        "Trust: The system logs all advisor interactions with the UI."
+      ],
+      "blocked_by": [
+        "STORY-003"
+      ],
+      "owner_agent": "UX Team",
+      "failure_paths": [
+        "UI fails to load",
+        "Navigation errors",
+        "UI component crashes",
+        "Data not displayed",
+        "UI not responsive"
+      ],
+      "task_guidance": "Design and implement the advisor dashboard with clear navigation and editing capabilities.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-005",
+      "title": "Implement Data Persistence",
+      "release": "r1",
+      "fulfills": [
+        "REQ-008"
+      ],
+      "narrative": "As a luxury retail advisor, I want my session data to persist, so that I can resume my work without losing information.",
+      "acceptance": [
+        "Given session data, When the system saves it, Then it persists across sessions.",
+        "Given a data persistence failure, When the system attempts to save, Then it provides a meaningful error message.",
+        "Trust: The system logs all data persistence actions."
+      ],
+      "blocked_by": [
+        "STORY-004"
+      ],
+      "owner_agent": "Development Team",
+      "failure_paths": [
+        "Database connection failure",
+        "Data corruption",
+        "Session data not saved",
+        "Data retrieval error",
+        "Data persistence timeout"
+      ],
+      "task_guidance": "Set up a database to store session data and ensure data integrity.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-006",
+      "title": "Implement Privacy Protection Measures",
+      "release": "r2",
+      "fulfills": [
+        "REQ-007",
+        "REQ-015"
+      ],
+      "narrative": "As a luxury retail advisor, I want to ensure client data privacy, so that I comply with privacy regulations.",
+      "acceptance": [
+        "Given client data, When the system processes it, Then it uses fictional/sample data only.",
+        "Given a privacy breach attempt, When the system detects it, Then it logs and alerts the security team.",
+        "Trust: The system logs all access to client data for audit purposes."
+      ],
+      "blocked_by": [
+        "STORY-005"
+      ],
+      "owner_agent": "Security Team",
+      "failure_paths": [
+        "Unauthorized data access",
+        "Data anonymization failure",
+        "Privacy breach",
+        "Access control misconfiguration",
+        "Data leakage"
+      ],
+      "task_guidance": "Implement data anonymization and access controls to protect client data.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-007",
+      "title": "Implement Least-Privilege Access Control",
+      "release": "r2",
+      "fulfills": [
+        "REQ-009"
+      ],
+      "narrative": "As a system administrator, I want to enforce least-privilege access, so that I minimize security risks.",
+      "acceptance": [
+        "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
+        "Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.",
+        "Trust: The system logs all access control changes for audit purposes."
+      ],
+      "blocked_by": [
+        "STORY-006"
+      ],
+      "owner_agent": "Security Team",
+      "failure_paths": [
+        "Access control misconfiguration",
+        "Unauthorized access",
+        "Role assignment error",
+        "Permission escalation",
+        "Access control timeout"
+      ],
+      "task_guidance": "Configure role-based access controls and audit logging for all system components.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-008",
+      "title": "Enhance AI Recommendation Capabilities with Fact Distinction",
+      "release": "r3",
+      "fulfills": [
+        "REQ-010",
+        "REQ-013"
+      ],
+      "narrative": "As a user, I want AI recommendations to be clearly distinguished from factual data, so that I can make informed decisions.",
+      "acceptance": [
+        "Given an AI-generated recommendation, When it is displayed, Then it is clearly marked as AI-generated",
+        "Given factual data, When it is displayed, Then it is not marked as AI-generated",
+        "Trust: Given any recommendation, When it is displayed, Then an audit log records its source as AI-generated or factual"
+      ],
+      "blocked_by": [
+        "STORY-009"
+      ],
+      "owner_agent": "AI Team",
+      "failure_paths": [
+        "AI-generated recommendations are not marked",
+        "Factual data is incorrectly marked as AI-generated",
+        "Audit log fails to record the source of recommendations"
+      ],
+      "task_guidance": "Implement UI changes to label AI-generated recommendations distinctly. Update the audit log to record the source of each recommendation.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-009",
+      "title": "Prepare System for Scalability",
+      "release": "r3",
+      "fulfills": [
+        "REQ-012"
+      ],
+      "narrative": "As a system architect, I want the system to be scalable, so that it can handle future growth.",
+      "acceptance": [
+        "Given increased load, When the system scales, Then it maintains performance and reliability.",
+        "Given a scalability issue, When the system detects it, Then it logs and alerts the admin.",
+        "Trust: The system logs all scalability-related changes for audit purposes."
+      ],
+      "blocked_by": [
+        "STORY-008"
+      ],
+      "owner_agent": "Development Team",
+      "failure_paths": [
+        "Scalability bottleneck",
+        "Load balancing failure",
+        "Performance degradation",
+        "Scalability configuration error",
+        "Resource exhaustion"
+      ],
+      "task_guidance": "Design system architecture to support horizontal scaling and load balancing.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-010",
+      "title": "Finalize Project Planning and Risk Assessment",
+      "release": "r4",
+      "fulfills": [
+        "REQ-014",
+        "REQ-018"
+      ],
+      "narrative": "As a project manager, I want a comprehensive project plan, so that I can ensure successful implementation.",
+      "acceptance": [
+        "Given project components, When the system analyzes them, Then it provides a detailed project plan.",
+        "Given a risk assessment failure, When the system detects it, Then it provides a meaningful error message.",
+        "Trust: The system logs all project planning activities for audit purposes."
+      ],
+      "blocked_by": [
+        "STORY-009"
+      ],
+      "owner_agent": "Project Management Team",
+      "failure_paths": [
+        "Component analysis error",
+        "Risk assessment failure",
+        "Project plan inaccuracies",
+        "Planning tool failure",
+        "Plan approval delay"
+      ],
+      "task_guidance": "Compile a detailed project plan including risk assessment and recommended build order.",
+      "due_on": null,
+      "due_baseline_on": null
+    },
+    {
+      "id": "STORY-011",
+      "title": "Queue Drafts for Human Approval",
+      "release": "r2",
+      "fulfills": [
+        "REQ-016"
+      ],
+      "narrative": "As a compliance officer, I want all drafts to be queued for human approval, so that no message is auto-sent without review.",
+      "acceptance": [
+        "Given a draft message, When it is created, Then it is added to the approval queue",
+        "Given a draft message, When it is in the queue, Then it is not auto-sent",
+        "Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver"
+      ],
+      "blocked_by": [
+        "STORY-007"
+      ],
+      "owner_agent": "Compliance Team",
+      "failure_paths": [
+        "Drafts are auto-sent without approval",
+        "Drafts are lost in the queue",
+        "Audit log fails to record approval actions"
+      ],
+      "task_guidance": "Develop a queue system for draft messages. Implement an approval interface for human reviewers. Ensure audit logs capture approval decisions.",
+      "due_on": null,
+      "due_baseline_on": null
+    }
+  ],
+  "agents": [],
+  "project": {
+    "name": "Luxury Client Intelligence Agent",
+    "descriptor": "An AI-powered tool for luxury retail client advisors to manage client relationships by identifying clienteling opportunities, recommending products, and generating personalized messages.",
+    "repo_url": null,
+    "plan_version": 1,
+    "plan_sha256": "acb101b065580f9a6192b4069e2fa233aedc84491ab0452deb4a649a265c6986"
+  },
+  "schedule": null,
+  "derived": {
+    "measures": [],
+    "guardrails": [
+      {
+        "id": "REQ-007",
+        "statement": "The system must protect client privacy by not using real customer information."
+      },
+      {
+        "id": "REQ-009",
+        "statement": "The system must follow least-privilege principles for tools and permissions."
+      },
+      {
+        "id": "REQ-015",
+        "statement": "The system must include security and privacy considerations in its architecture."
+      },
+      {
+        "id": "REQ-016",
+        "statement": "The system must queue drafts for human approval and never auto-send messages."
+      }
+    ],
+    "systems": [],
+    "roles": [
+      "luxury retail advisor",
+      "system administrator",
+      "user",
+      "system architect",
+      "project manager",
+      "compliance officer"
+    ],
+    "counts": {
+      "requirements_total": 18,
+      "requirements_by_kind": {
+        "CONSTRAINT": 3,
+        "FUNC": 10,
+        "NFR": 1,
+        "SAFE": 4
+      },
+      "stories_total": 11,
+      "releases_total": 5,
+      "agents_total": 0,
+      "failure_paths_total": 50,
+      "agents_by_autonomy": {}
+    }
+  }
+}
