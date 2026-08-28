@@ -1,8 +1,21 @@
 {
   "schema_version": 2,
+  "project": "Luxury Client Intelligence Agent",
+  "totals": {
+    "stories_total": 12,
+    "stories_verified": 1,
+    "stories_submitted": 0,
+    "stories_in_progress": 11,
+    "stories_not_started": 0,
+    "criteria_total": 38,
+    "criteria_passed": 5,
+    "points_awarded": 67
+  },
   "stories": [
     {
       "id": "STORY-000",
+      "release": null,
+      "acceptance_total": 5,
       "criteria": [
         {
           "text": "Given the Command Center, when it is opened, then every tab is reachable and every card drills down one level.",
@@ -91,10 +104,23 @@
         "tests/escapeHtml.test.ts"
       ],
       "notes": "Rebuilt the Command Center as a 9-tab app that fetches .colaberry/plan.json, progress.json and manifest.json at runtime (no bundler, no hard-coded project data). Verified in a real browser via Playwright: all 9 tabs reachable, drill-down works, SAMPLE label shows on every tab in sample mode, data-age banner with stale warning shows on every tab, and no tab ever renders a fabricated connection/run-history/points value.",
-      "updated_at": "2026-08-27"
+      "updated_at": "2026-08-27",
+      "verification": {
+        "state": "verified",
+        "criteria_passed": 5,
+        "criteria_total": 5,
+        "verified_at": "2026-08-28T01:45:54.250Z",
+        "commit_sha": "3227ddcd0c90f712475c026eeca0eb2ddb6f3a08",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/3227ddcd0c90f712475c026eeca0eb2ddb6f3a08",
+        "commit_at": "2026-08-28T01:45:42Z",
+        "points_awarded": 67,
+        "outstanding": []
+      }
     },
     {
       "id": "STORY-001",
+      "release": "r0",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
@@ -108,10 +134,31 @@
           "text": "Trust: The system logs the reasoning for each opportunity identified.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
+          "Given incomplete client data, When the system attempts analysis, Then it provides a meaningful error message.",
+          "Trust: The system logs the reasoning for each opportunity identified."
+        ]
+      }
     },
     {
       "id": "STORY-002",
+      "release": "r0",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
@@ -125,10 +172,31 @@
           "text": "Trust: The system logs all generated messages for audit purposes.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
+          "Given an invalid opportunity, When the system attempts to generate a message, Then it provides a meaningful error message.",
+          "Trust: The system logs all generated messages for audit purposes."
+        ]
+      }
     },
     {
       "id": "STORY-003",
+      "release": "r0",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.",
@@ -142,10 +210,31 @@
           "text": "Trust: The system logs the reasoning for each product recommendation.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.",
+          "Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.",
+          "Trust: The system logs the reasoning for each product recommendation."
+        ]
+      }
     },
     {
       "id": "STORY-004",
+      "release": "r1",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
@@ -159,10 +248,31 @@
           "text": "Trust: The system logs all advisor interactions with the UI.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
+          "Given a UI component fails to load, When an advisor accesses the system, Then a fallback UI is displayed.",
+          "Trust: The system logs all advisor interactions with the UI."
+        ]
+      }
     },
     {
       "id": "STORY-005",
+      "release": "r1",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given session data, When the system saves it, Then it persists across sessions.",
@@ -176,10 +286,31 @@
           "text": "Trust: The system logs all data persistence actions.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given session data, When the system saves it, Then it persists across sessions.",
+          "Given a data persistence failure, When the system attempts to save, Then it provides a meaningful error message.",
+          "Trust: The system logs all data persistence actions."
+        ]
+      }
     },
     {
       "id": "STORY-006",
+      "release": "r2",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given client data, When the system processes it, Then it uses fictional/sample data only.",
@@ -193,10 +324,31 @@
           "text": "Trust: The system logs all access to client data for audit purposes.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given client data, When the system processes it, Then it uses fictional/sample data only.",
+          "Given a privacy breach attempt, When the system detects it, Then it logs and alerts the security team.",
+          "Trust: The system logs all access to client data for audit purposes."
+        ]
+      }
     },
     {
       "id": "STORY-007",
+      "release": "r2",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
@@ -210,10 +362,31 @@
           "text": "Trust: The system logs all access control changes for audit purposes.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
+          "Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.",
+          "Trust: The system logs all access control changes for audit purposes."
+        ]
+      }
     },
     {
       "id": "STORY-008",
+      "release": "r3",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given an AI-generated recommendation, When it is displayed, Then it is clearly marked as AI-generated",
@@ -227,10 +400,31 @@
           "text": "Trust: Given any recommendation, When it is displayed, Then an audit log records its source as AI-generated or factual",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given an AI-generated recommendation, When it is displayed, Then it is clearly marked as AI-generated",
+          "Given factual data, When it is displayed, Then it is not marked as AI-generated",
+          "Trust: Given any recommendation, When it is displayed, Then an audit log records its source as AI-generated or factual"
+        ]
+      }
     },
     {
       "id": "STORY-009",
+      "release": "r3",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given increased load, When the system scales, Then it maintains performance and reliability.",
@@ -244,10 +438,31 @@
           "text": "Trust: The system logs all scalability-related changes for audit purposes.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given increased load, When the system scales, Then it maintains performance and reliability.",
+          "Given a scalability issue, When the system detects it, Then it logs and alerts the admin.",
+          "Trust: The system logs all scalability-related changes for audit purposes."
+        ]
+      }
     },
     {
       "id": "STORY-010",
+      "release": "r4",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given project components, When the system analyzes them, Then it provides a detailed project plan.",
@@ -261,10 +476,31 @@
           "text": "Trust: The system logs all project planning activities for audit purposes.",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given project components, When the system analyzes them, Then it provides a detailed project plan.",
+          "Given a risk assessment failure, When the system detects it, Then it provides a meaningful error message.",
+          "Trust: The system logs all project planning activities for audit purposes."
+        ]
+      }
     },
     {
       "id": "STORY-011",
+      "release": "r2",
+      "acceptance_total": 3,
       "criteria": [
         {
           "text": "Given a draft message, When it is created, Then it is added to the approval queue",
@@ -278,7 +514,26 @@
           "text": "Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver",
           "passed": false
         }
-      ]
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": {
+        "state": "in_progress",
+        "criteria_passed": 0,
+        "criteria_total": 3,
+        "verified_at": null,
+        "commit_sha": null,
+        "commit_url": null,
+        "commit_at": null,
+        "points_awarded": null,
+        "outstanding": [
+          "Given a draft message, When it is created, Then it is added to the approval queue",
+          "Given a draft message, When it is in the queue, Then it is not auto-sent",
+          "Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver"
+        ]
+      }
     }
   ]
 }
