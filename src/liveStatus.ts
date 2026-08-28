@@ -7,19 +7,20 @@ export interface LiveIndicator {
   lastCheckedIso: string | null;
 }
 
-export function getOverviewLiveIndicators(nowIso: string): LiveIndicator[] {
-  return [
-    {
-      id: 'command-center',
-      label: 'Command Center (this page)',
-      status: 'live',
-      lastCheckedIso: nowIso,
-    },
-    {
-      id: 'clienteling-agent',
-      label: 'Luxury Client Intelligence Agent (the product itself)',
-      status: 'unknown',
-      lastCheckedIso: null,
-    },
-  ];
+export function getLiveIndicators(systemNames: string[], nowIso: string): LiveIndicator[] {
+  const commandCenter: LiveIndicator = {
+    id: 'command-center',
+    label: 'Command Center (this page)',
+    status: 'live',
+    lastCheckedIso: nowIso,
+  };
+
+  const systems: LiveIndicator[] = systemNames.map((name, index) => ({
+    id: `system-${index}`,
+    label: name,
+    status: 'unknown',
+    lastCheckedIso: null,
+  }));
+
+  return [commandCenter, ...systems];
 }

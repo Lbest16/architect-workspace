@@ -6,25 +6,92 @@
       "criteria": [
         {
           "text": "Given the Command Center, when it is opened, then every tab is reachable and every card drills down one level.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given sample mode, when any tab is shown, then the sample data is visibly labelled as sample.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given the Command Center, when any tab renders, then .colaberry/plan.json and .colaberry/progress.json are both committed in this repo and every tab reads its content from them at runtime rather than from hard-coded values.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given the Command Center, when any tab is shown, then .colaberry/manifest.json is committed in this repo and every tab shows how old that data is and warns when the age exceeds a week.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust — no tab shows a number, a connection or a result the project has not actually produced.",
-          "passed": false
+          "passed": true
         }
-      ]
+      ],
+      "files_touched": [
+        "src/main.ts",
+        "src/route.ts",
+        "src/tabVm.ts",
+        "src/loadPlan.ts",
+        "src/loadProgress.ts",
+        "src/loadManifest.ts",
+        "src/fetchJson.ts",
+        "src/dataAge.ts",
+        "src/dataAgeBanner.ts",
+        "src/joinStories.ts",
+        "src/deriveTotals.ts",
+        "src/currentRelease.ts",
+        "src/liveStatus.ts",
+        "src/sampleData.ts",
+        "src/renderShell.ts",
+        "src/renderTabNav.ts",
+        "src/renderModeSwitch.ts",
+        "src/renderSampleBanner.ts",
+        "src/renderOverviewTab.ts",
+        "src/renderOutcomesTab.ts",
+        "src/renderUsersTab.ts",
+        "src/renderGuardrailsTab.ts",
+        "src/renderSystemsTab.ts",
+        "src/renderProjectManagementTab.ts",
+        "src/renderAgentsTab.ts",
+        "src/renderKnowledgeBaseTab.ts",
+        "src/renderDataModelTab.ts",
+        "src/dataModelSchema.ts",
+        "src/knowledgeSearch.ts",
+        "src/escapeHtml.ts",
+        "src/commandCenter.css"
+      ],
+      "tests_added": [
+        "tests/main.test.ts",
+        "tests/route.test.ts",
+        "tests/tabVm.test.ts",
+        "tests/loadPlan.test.ts",
+        "tests/loadProgress.test.ts",
+        "tests/loadManifest.test.ts",
+        "tests/fetchJson.test.ts",
+        "tests/dataAge.test.ts",
+        "tests/dataAgeBanner.test.ts",
+        "tests/joinStories.test.ts",
+        "tests/deriveTotals.test.ts",
+        "tests/currentRelease.test.ts",
+        "tests/liveStatus.test.ts",
+        "tests/sampleData.test.ts",
+        "tests/renderShell.test.ts",
+        "tests/renderTabNav.test.ts",
+        "tests/renderModeSwitch.test.ts",
+        "tests/renderSampleBanner.test.ts",
+        "tests/renderOverviewTab.test.ts",
+        "tests/renderOutcomesTab.test.ts",
+        "tests/renderUsersTab.test.ts",
+        "tests/renderGuardrailsTab.test.ts",
+        "tests/renderSystemsTab.test.ts",
+        "tests/renderProjectManagementTab.test.ts",
+        "tests/renderAgentsTab.test.ts",
+        "tests/renderKnowledgeBaseTab.test.ts",
+        "tests/renderDataModelTab.test.ts",
+        "tests/dataModelSchema.test.ts",
+        "tests/knowledgeSearch.test.ts",
+        "tests/escapeHtml.test.ts"
+      ],
+      "notes": "Rebuilt the Command Center as a 9-tab app that fetches .colaberry/plan.json, progress.json and manifest.json at runtime (no bundler, no hard-coded project data). Verified in a real browser via Playwright: all 9 tabs reachable, drill-down works, SAMPLE label shows on every tab in sample mode, data-age banner with stale warning shows on every tab, and no tab ever renders a fabricated connection/run-history/points value.",
+      "updated_at": "2026-08-27"
     },
     {
       "id": "STORY-001",

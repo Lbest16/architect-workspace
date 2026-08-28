@@ -1,14 +1,27 @@
-import type { Release } from './releases';
+import type { ReleasePlan } from './loadPlan';
+import type { JoinedStory } from './joinStories';
 
-export function getCurrentRelease(releases: Release[], todayIso: string): Release | null {
-  if (releases.length === 0) return null;
+export type CurrentReleaseBasis = 'date' | 'progress' | 'none';
 
-  const active = releases.find((r) => todayIso >= r.startIso && todayIso <= r.endIso);
-  if (active) return active;
+export interface CurrentReleaseResult {
+  release: ReleasePlan | null;
+  basis: CurrentReleaseBasis;
+}
 
-  const sorted = [...releases].sort((a, b) => a.startIso.localeCompare(b.startIso));
-  const upcoming = sorted.find((r) => r.startIso > todayIso);
-  if (upcoming) return upcoming;
+function isReleaseVerified(release: ReleasePlan, joinedStories: JoinedStory[]): boolean {
+  const stories = joinedStories.filter((s) => release.story_ids.includes(s.id));
+  if (stories.length === 0) return false;
+  return stories.every((s) => s.state === 'verified');
+}
 
-  return sorted[sorted.length - 1];
+export function getCurrentRelease(releases: ReleasePlan[], joinedStories: JoinedStory[], todayIso: string): CurrentReleaseResult {
+  if (releases.length === 0) return { release: null, basis: 'none' };
+
+  const dated = releases.find((r) => r.starts_on && r.ends_on && todayIso >= r.starts_on && todayIso <= r.ends_on);
+  if (dated) return { release: dated, basis: 'date' };
+
+  const firstUnfinished = releases.find((r) => !isReleaseVerified(r, joinedStories));
+  if (firstUnfinished) return { release: firstUnfinished, basis: 'progress' };
+
+  return { release: releases[releases.length - 1], basis: 'progress' };
 }
