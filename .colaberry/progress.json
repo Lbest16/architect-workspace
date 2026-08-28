@@ -124,21 +124,43 @@
       "criteria": [
         {
           "text": "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given incomplete client data, When the system attempts analysis, Then it provides a meaningful error message.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs the reasoning for each opportunity identified.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/clientProfile.ts",
+        "src/product.ts",
+        "src/opportunity.ts",
+        "src/daysBetween.ts",
+        "src/validateClientData.ts",
+        "src/scoreOpportunities.ts",
+        "src/logOpportunityReasoning.ts",
+        "src/identifyOpportunity.ts",
+        "src/sampleProducts.ts",
+        "src/sampleClients.ts"
+      ],
+      "tests_added": [
+        "tests/clientProfile.test.ts",
+        "tests/product.test.ts",
+        "tests/opportunity.test.ts",
+        "tests/daysBetween.test.ts",
+        "tests/validateClientData.test.ts",
+        "tests/scoreOpportunities.test.ts",
+        "tests/logOpportunityReasoning.test.ts",
+        "tests/identifyOpportunity.test.ts",
+        "tests/sampleProducts.test.ts",
+        "tests/sampleClients.test.ts"
+      ],
+      "notes": "Implemented a deterministic opportunity-detection algorithm: validateClientData enforces the required shape (client id/name, preferences, purchaseHistory entries, lastContactedOn) and returns a field-specific error on anything missing or malformed; scoreOpportunities scores each catalog product against the client's preferred categories/houses, new-arrival status, category-expansion, and spend alignment, plus a re-engagement candidate once the contact gap passes 60 days; identifyOpportunity picks the highest-scoring candidate deterministically and calls logOpportunityReasoning to append it (with its full reasoning) to an in-memory audit log exposed via getOpportunityAuditLog. Sample data is fictional only (src/sampleClients.ts, src/sampleProducts.ts). All 44 test files / 145 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines.",
+      "updated_at": "2026-08-27",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
