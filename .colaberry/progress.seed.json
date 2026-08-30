@@ -1,0 +1,312 @@
+{
+  "schema_version": 2,
+  "project": "Luxury Client Intelligence Agent",
+  "totals": {
+    "stories_total": 12,
+    "stories_verified": 0,
+    "stories_submitted": 0,
+    "stories_in_progress": 0,
+    "stories_not_started": 12,
+    "criteria_total": 38,
+    "criteria_passed": 0,
+    "points_awarded": 0
+  },
+  "stories": [
+    {
+      "id": "STORY-000",
+      "release": null,
+      "acceptance_total": 5,
+      "criteria": [
+        {
+          "text": "Given the Command Center, when it is opened, then every tab is reachable and every card drills down one level.",
+          "passed": false
+        },
+        {
+          "text": "Given sample mode, when any tab is shown, then the sample data is visibly labelled as sample.",
+          "passed": false
+        },
+        {
+          "text": "Given the Command Center, when any tab renders, then .colaberry/plan.json and .colaberry/progress.json are both committed in this repo and every tab reads its content from them at runtime rather than from hard-coded values.",
+          "passed": false
+        },
+        {
+          "text": "Given the Command Center, when any tab is shown, then .colaberry/manifest.json is committed in this repo and every tab shows how old that data is and warns when the age exceeds a week.",
+          "passed": false
+        },
+        {
+          "text": "Trust — no tab shows a number, a connection or a result the project has not actually produced.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-001",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
+          "passed": false
+        },
+        {
+          "text": "Given incomplete client data, When the system attempts analysis, Then it provides a meaningful error message.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs the reasoning for each opportunity identified.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-002",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
+          "passed": false
+        },
+        {
+          "text": "Given an invalid opportunity, When the system attempts to generate a message, Then it provides a meaningful error message.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all generated messages for audit purposes.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-003",
+      "release": "r0",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.",
+          "passed": false
+        },
+        {
+          "text": "Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs the reasoning for each product recommendation.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-004",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
+          "passed": false
+        },
+        {
+          "text": "Given a UI component fails to load, When an advisor accesses the system, Then a fallback UI is displayed.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all advisor interactions with the UI.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-005",
+      "release": "r1",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given session data, When the system saves it, Then it persists across sessions.",
+          "passed": false
+        },
+        {
+          "text": "Given a data persistence failure, When the system attempts to save, Then it provides a meaningful error message.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all data persistence actions.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-006",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given client data, When the system processes it, Then it uses fictional/sample data only.",
+          "passed": false
+        },
+        {
+          "text": "Given a privacy breach attempt, When the system detects it, Then it logs and alerts the security team.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all access to client data for audit purposes.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-007",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
+          "passed": false
+        },
+        {
+          "text": "Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all access control changes for audit purposes.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-008",
+      "release": "r3",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given an AI-generated recommendation, When it is displayed, Then it is clearly marked as AI-generated",
+          "passed": false
+        },
+        {
+          "text": "Given factual data, When it is displayed, Then it is not marked as AI-generated",
+          "passed": false
+        },
+        {
+          "text": "Trust: Given any recommendation, When it is displayed, Then an audit log records its source as AI-generated or factual",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-009",
+      "release": "r3",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given increased load, When the system scales, Then it maintains performance and reliability.",
+          "passed": false
+        },
+        {
+          "text": "Given a scalability issue, When the system detects it, Then it logs and alerts the admin.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all scalability-related changes for audit purposes.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-010",
+      "release": "r4",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given project components, When the system analyzes them, Then it provides a detailed project plan.",
+          "passed": false
+        },
+        {
+          "text": "Given a risk assessment failure, When the system detects it, Then it provides a meaningful error message.",
+          "passed": false
+        },
+        {
+          "text": "Trust: The system logs all project planning activities for audit purposes.",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    },
+    {
+      "id": "STORY-011",
+      "release": "r2",
+      "acceptance_total": 3,
+      "criteria": [
+        {
+          "text": "Given a draft message, When it is created, Then it is added to the approval queue",
+          "passed": false
+        },
+        {
+          "text": "Given a draft message, When it is in the queue, Then it is not auto-sent",
+          "passed": false
+        },
+        {
+          "text": "Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver",
+          "passed": false
+        }
+      ],
+      "files_touched": [],
+      "tests_added": [],
+      "notes": null,
+      "updated_at": null,
+      "verification": null
+    }
+  ]
+}
