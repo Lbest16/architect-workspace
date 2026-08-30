@@ -3,13 +3,13 @@
   "project": "Luxury Client Intelligence Agent",
   "totals": {
     "stories_total": 12,
-    "stories_verified": 1,
+    "stories_verified": 2,
     "stories_submitted": 0,
-    "stories_in_progress": 11,
+    "stories_in_progress": 10,
     "stories_not_started": 0,
     "criteria_total": 38,
-    "criteria_passed": 5,
-    "points_awarded": 67
+    "criteria_passed": 8,
+    "points_awarded": 134
   },
   "stories": [
     {
@@ -162,19 +162,15 @@
       "notes": "Implemented a deterministic opportunity-detection algorithm: validateClientData enforces the required shape (client id/name, preferences, purchaseHistory entries, lastContactedOn) and returns a field-specific error on anything missing or malformed; scoreOpportunities scores each catalog product against the client's preferred categories/houses, new-arrival status, category-expansion, and spend alignment, plus a re-engagement candidate once the contact gap passes 60 days; identifyOpportunity picks the highest-scoring candidate deterministically and calls logOpportunityReasoning to append it (with its full reasoning) to an in-memory audit log exposed via getOpportunityAuditLog. Sample data is fictional only (src/sampleClients.ts, src/sampleProducts.ts). All 44 test files / 145 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines.",
       "updated_at": "2026-08-27",
       "verification": {
-        "state": "in_progress",
-        "criteria_passed": 0,
+        "state": "verified",
+        "criteria_passed": 3,
         "criteria_total": 3,
-        "verified_at": null,
-        "commit_sha": null,
-        "commit_url": null,
-        "commit_at": null,
-        "points_awarded": null,
-        "outstanding": [
-          "Given a client profile, purchase history, and preferences, When the system analyzes the data, Then it identifies the strongest clienteling opportunity.",
-          "Given incomplete client data, When the system attempts analysis, Then it provides a meaningful error message.",
-          "Trust: The system logs the reasoning for each opportunity identified."
-        ]
+        "verified_at": "2026-08-28T03:59:59.186Z",
+        "commit_sha": "9f5b170c5cfe0788cafd1db4489fb6ce96171205",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/9f5b170c5cfe0788cafd1db4489fb6ce96171205",
+        "commit_at": "2026-08-28T03:27:07Z",
+        "points_awarded": 67,
+        "outstanding": []
       }
     },
     {
