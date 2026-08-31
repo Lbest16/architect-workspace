@@ -266,21 +266,45 @@
       "criteria": [
         {
           "text": "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given a UI component fails to load, When an advisor accesses the system, Then a fallback UI is displayed.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs all advisor interactions with the UI.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "advisor.html",
+        "src/advisorDashboard.css",
+        "src/advisorRoute.ts",
+        "src/buildAdvisorPage.ts",
+        "src/buildClientDetail.ts",
+        "src/initAdvisorApp.ts",
+        "src/logAdvisorInteraction.ts",
+        "src/renderAdvisorShell.ts",
+        "src/renderClientDetail.ts",
+        "src/renderClientDetailEmpty.ts",
+        "src/renderClientRoster.ts",
+        "src/renderFallbackUi.ts"
+      ],
+      "tests_added": [
+        "tests/advisorRoute.test.ts",
+        "tests/buildAdvisorPage.test.ts",
+        "tests/buildClientDetail.test.ts",
+        "tests/initAdvisorApp.test.ts",
+        "tests/logAdvisorInteraction.test.ts",
+        "tests/renderAdvisorShell.test.ts",
+        "tests/renderClientDetail.test.ts",
+        "tests/renderClientDetailEmpty.test.ts",
+        "tests/renderClientRoster.test.ts",
+        "tests/renderFallbackUi.test.ts"
+      ],
+      "notes": "New advisor-facing dashboard (advisor.html), separate from the STORY-000 Command Center. Roster -> client detail view runs the existing identifyOpportunity -> recommendProduct -> generateMessage pipeline, with an editable message draft and a queue-for-approval action (no send capability exists anywhere in the codebase). Component crashes and missing data render fallback/empty-state UI instead of blank panels or exceptions. All advisor navigation, message edits, and queue actions are recorded via logAdvisorInteraction. Queueing is UI-only in-memory state for now; persistence is STORY-005.",
+      "updated_at": "2026-08-31T19:41:44.331Z",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
