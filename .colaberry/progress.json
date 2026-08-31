@@ -184,21 +184,31 @@
       "criteria": [
         {
           "text": "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given an invalid opportunity, When the system attempts to generate a message, Then it provides a meaningful error message.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs all generated messages for audit purposes.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/message.ts",
+        "src/messageTemplates.ts",
+        "src/logMessageGeneration.ts",
+        "src/generateMessage.ts"
+      ],
+      "tests_added": [
+        "tests/message.test.ts",
+        "tests/messageTemplates.test.ts",
+        "tests/logMessageGeneration.test.ts",
+        "tests/generateMessage.test.ts"
+      ],
+      "notes": "Implemented message generation on top of an identified opportunity: findMessageTemplate (messageTemplates.ts) maps an opportunity type to a subject/body template and fails gracefully on an unrecognized type; generateMessage (generateMessage.ts) validates the opportunity (present, belongs to the given client, product resolves in the catalog when the template requires one), fills the template's {{clientName}}/{{productName}}/{{productHouse}}/{{preferredCategory}} placeholders, and returns an editable OutreachMessage (plain mutable fields, no auto-send path) or a meaningful error; every successful generation is appended to an in-memory audit log via logMessageGeneration.ts, mirroring the STORY-001 opportunity audit log. 48 test files / 164 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines.",
+      "updated_at": "2026-08-30",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
