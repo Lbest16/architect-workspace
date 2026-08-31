@@ -3,13 +3,13 @@
   "project": "Luxury Client Intelligence Agent",
   "totals": {
     "stories_total": 12,
-    "stories_verified": 2,
+    "stories_verified": 3,
     "stories_submitted": 0,
-    "stories_in_progress": 10,
+    "stories_in_progress": 9,
     "stories_not_started": 0,
     "criteria_total": 38,
-    "criteria_passed": 8,
-    "points_awarded": 134
+    "criteria_passed": 11,
+    "points_awarded": 201
   },
   "stories": [
     {
@@ -206,19 +206,15 @@
       "notes": "Implemented message generation on top of an identified opportunity: findMessageTemplate (messageTemplates.ts) maps an opportunity type to a subject/body template and fails gracefully on an unrecognized type; generateMessage (generateMessage.ts) validates the opportunity (present, belongs to the given client, product resolves in the catalog when the template requires one), fills the template's {{clientName}}/{{productName}}/{{productHouse}}/{{preferredCategory}} placeholders, and returns an editable OutreachMessage (plain mutable fields, no auto-send path) or a meaningful error; every successful generation is appended to an in-memory audit log via logMessageGeneration.ts, mirroring the STORY-001 opportunity audit log. 48 test files / 164 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines.",
       "updated_at": "2026-08-30",
       "verification": {
-        "state": "in_progress",
-        "criteria_passed": 0,
+        "state": "verified",
+        "criteria_passed": 3,
         "criteria_total": 3,
-        "verified_at": null,
-        "commit_sha": null,
-        "commit_url": null,
-        "commit_at": null,
-        "points_awarded": null,
-        "outstanding": [
-          "Given an identified opportunity, When the system generates a message, Then the message is personalized and editable.",
-          "Given an invalid opportunity, When the system attempts to generate a message, Then it provides a meaningful error message.",
-          "Trust: The system logs all generated messages for audit purposes."
-        ]
+        "verified_at": "2026-08-31T04:17:38.575Z",
+        "commit_sha": "e5571ed6a84d27ea98c48ca95bb8a69906e04671",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/e5571ed6a84d27ea98c48ca95bb8a69906e04671",
+        "commit_at": "2026-08-31T04:14:32Z",
+        "points_awarded": 67,
+        "outstanding": []
       }
     },
     {
