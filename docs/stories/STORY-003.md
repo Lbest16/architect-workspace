@@ -29,8 +29,8 @@ the same criteria out of `.colaberry/progress.json`, which Claude Code keeps in
 step (see the managed block in CLAUDE.md). Ticking something you have not
 actually met only misleads you.
 
-- [ ] Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.
-- [ ] Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.
-- [ ] Trust: The system logs the reasoning for each product recommendation.
+- [x] Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.
+- [x] Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.
+- [x] Trust: The system logs the reasoning for each product recommendation.
 
 When every box above is ticked, stop and show the demo.

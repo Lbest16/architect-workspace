@@ -228,21 +228,29 @@
       "criteria": [
         {
           "text": "Given an identified opportunity, When the system recommends a product, Then the product is relevant to the client's preferences.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given no available products, When the system attempts to recommend, Then it provides a meaningful error message.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs the reasoning for each product recommendation.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/productRecommendation.ts",
+        "src/logProductRecommendation.ts",
+        "src/recommendProduct.ts"
+      ],
+      "tests_added": [
+        "tests/productRecommendation.test.ts",
+        "tests/logProductRecommendation.test.ts",
+        "tests/recommendProduct.test.ts"
+      ],
+      "notes": "Implemented product recommendation on top of an identified opportunity: recommendProduct (recommendProduct.ts) validates the opportunity/client pair, rejects a catalog that is not loaded or empty with a meaningful error, scores every catalog product against the client's preferred categories/houses/new-arrival status, and returns the best-scoring match (or a meaningful error naming the client when nothing scores above zero) with its reasoning trail (productRecommendation.ts). Every successful recommendation is appended to an in-memory audit log via logProductRecommendation.ts, mirroring the STORY-001/STORY-002 audit logs. Deliberately independent of the productId that identifyOpportunity may already attach, since this is its own auditable recommendation. Two listed failure paths (AI model fails to recommend / recommendation timeout) are not applicable: this codebase uses deterministic, synchronous scoring rather than an external AI call, consistent with STORY-001/STORY-002 — confirmed with the user before implementing. 51 test files / 178 tests pass via `npm test`; every new src file has a matching test and stays under 200 lines (13/24/93 lines).",
+      "updated_at": "2026-08-30",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
