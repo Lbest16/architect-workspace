@@ -328,21 +328,36 @@
       "criteria": [
         {
           "text": "Given session data, When the system saves it, Then it persists across sessions.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given a data persistence failure, When the system attempts to save, Then it provides a meaningful error message.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs all data persistence actions.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/keyValueStore.ts",
+        "src/sessionRecord.ts",
+        "src/logPersistenceAction.ts",
+        "src/browserKeyValueStore.ts",
+        "src/saveSessionRecord.ts",
+        "src/loadSessionRecord.ts",
+        "src/initAdvisorApp.ts"
+      ],
+      "tests_added": [
+        "tests/keyValueStore.test.ts",
+        "tests/sessionRecord.test.ts",
+        "tests/logPersistenceAction.test.ts",
+        "tests/browserKeyValueStore.test.ts",
+        "tests/saveSessionRecord.test.ts",
+        "tests/loadSessionRecord.test.ts"
+      ],
+      "notes": "The advisor dashboard is a static client-side app with no server, so 'the database' for session data is the browser's localStorage, accessed only through a small injectable KeyValueStore interface (least-privilege, and fully testable without jsdom). getBrowserKeyValueStore probes localStorage with a throwaway write before use, turning an unavailable/full/disabled store into a meaningful error rather than a later crash (covers the 'database connection failure' failure path). saveSessionRecord/loadSessionRecord wrap every read/write in try/catch, returning a meaningful, client-scoped error on failure (covers data corruption, save failure, and retrieval error) and logging every attempt — success or failure — via logPersistenceAction (Trust criterion). 'Data persistence timeout' does not apply: storage access here is synchronous with no network round-trip, consistent with the deterministic/synchronous architecture already established in STORY-001/002/003. initAdvisorApp.ts wires this in: a client's draft subject/body and queued state are saved on edit and on queue, restored into the DOM after each render, and a save/load failure renders an inline error note instead of failing silently. Verified in a real browser via Playwright against the vite dev server: edited subject/body and queued state both survive a full page reload, with zero console errors. All 67 test files / 221 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines (initAdvisorApp.ts grew to 126).",
+      "updated_at": "2026-09-01",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
