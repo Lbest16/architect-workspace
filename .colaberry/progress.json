@@ -3,13 +3,13 @@
   "project": "Luxury Client Intelligence Agent",
   "totals": {
     "stories_total": 12,
-    "stories_verified": 4,
+    "stories_verified": 5,
     "stories_submitted": 0,
-    "stories_in_progress": 8,
+    "stories_in_progress": 7,
     "stories_not_started": 0,
     "criteria_total": 38,
-    "criteria_passed": 14,
-    "points_awarded": 268
+    "criteria_passed": 17,
+    "points_awarded": 335
   },
   "stories": [
     {
@@ -306,19 +306,15 @@
       "notes": "New advisor-facing dashboard (advisor.html), separate from the STORY-000 Command Center. Roster -> client detail view runs the existing identifyOpportunity -> recommendProduct -> generateMessage pipeline, with an editable message draft and a queue-for-approval action (no send capability exists anywhere in the codebase). Component crashes and missing data render fallback/empty-state UI instead of blank panels or exceptions. All advisor navigation, message edits, and queue actions are recorded via logAdvisorInteraction. Queueing is UI-only in-memory state for now; persistence is STORY-005.",
       "updated_at": "2026-08-31T19:41:44.331Z",
       "verification": {
-        "state": "in_progress",
-        "criteria_passed": 0,
+        "state": "verified",
+        "criteria_passed": 3,
         "criteria_total": 3,
-        "verified_at": null,
-        "commit_sha": null,
-        "commit_url": null,
-        "commit_at": null,
-        "points_awarded": null,
-        "outstanding": [
-          "Given the system is running, When an advisor logs in, Then they see a user-friendly interface.",
-          "Given a UI component fails to load, When an advisor accesses the system, Then a fallback UI is displayed.",
-          "Trust: The system logs all advisor interactions with the UI."
-        ]
+        "verified_at": "2026-08-31T19:42:11.026Z",
+        "commit_sha": "a70c939a56cdad3a5c37ba2435f68aded35a4620",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/a70c939a56cdad3a5c37ba2435f68aded35a4620",
+        "commit_at": "2026-08-31T19:41:58Z",
+        "points_awarded": 67,
+        "outstanding": []
       }
     },
     {
