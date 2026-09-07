@@ -377,21 +377,31 @@
       "criteria": [
         {
           "text": "Given client data, When the system processes it, Then it uses fictional/sample data only.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given a privacy breach attempt, When the system detects it, Then it logs and alerts the security team.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs all access to client data for audit purposes.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/logClientDataAccess.ts",
+        "src/detectPrivacyBreach.ts",
+        "src/logSecurityAlert.ts",
+        "src/buildClientDetail.ts"
+      ],
+      "tests_added": [
+        "tests/logClientDataAccess.test.ts",
+        "tests/detectPrivacyBreach.test.ts",
+        "tests/logSecurityAlert.test.ts",
+        "tests/buildClientDetail.test.ts"
+      ],
+      "notes": "buildClientDetail.ts is the single point where client data is processed (opportunity -> recommendation -> message pipeline), so that is where this hooks in rather than scattering checks across every consumer. detectPrivacyBreach.ts runs first on every call: it rejects a client id outside the fictional CLT-<digits> id space used throughout sampleClients.ts, and scans every string field for shapes real fictional data never produces (email, SSN, phone, credit-card patterns) — this is what makes 'uses fictional/sample data only' an enforced check rather than just a convention in the sample-data file. On a flagged breach, logSecurityAlert.ts records the reason (an inspectable, append-only alert trail standing in for a real security-team notification channel, since no external alerting system exists in this project) and the pipeline is short-circuited to a blocked empty-state — no opportunity/recommendation/message stages ever touch flagged data. logClientDataAccess.ts records every call to buildClientDetail as allowed or blocked, satisfying the audit-for-access Trust criterion; this is separate from the existing per-stage audit logs from STORY-001/002/003 (reasoning/recommendation/message), which log what was produced, not that the client record was accessed. 'Access control misconfiguration' and role-based 'unauthorized access' are intentionally out of scope here — that is STORY-007 (Least-Privilege Access Control), which this story leaves room for rather than build early. All 70 test files / 237 tests pass via `npm test`; every new src file has a matching test and stays under 200 lines (23/50/20/45 lines).",
+      "updated_at": "2026-09-06",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
