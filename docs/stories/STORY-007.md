@@ -29,8 +29,15 @@ the same criteria out of `.colaberry/progress.json`, which Claude Code keeps in
 step (see the managed block in CLAUDE.md). Ticking something you have not
 actually met only misleads you.
 
-- [ ] Given user roles, When the system assigns permissions, Then each user has only necessary access.
-- [ ] Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.
-- [ ] Trust: The system logs all access control changes for audit purposes.
+- [x] Given user roles, When the system assigns permissions, Then each user has only necessary access.
+- [x] Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.
+- [x] Trust: The system logs all access control changes for audit purposes.
 
 When every box above is ticked, stop and show the demo.
+
+## Notes
+
+- "Access control timeout" (a listed failure path) does not apply: role/permission
+  resolution here is synchronous, in-process client-side code with no network or external
+  call in the check path — consistent with the same call made for STORY-003 and STORY-005.
+  Confirmed with the user before marking this done.

@@ -42,4 +42,15 @@ describe('buildAdvisorPage', () => {
     const html = buildAdvisorPage(roster, null as unknown as ClientProfile[], catalog, now);
     expect(html).toContain('Something went wrong');
   });
+
+  it('denies client detail access to a role without view_client_data', () => {
+    const html = buildAdvisorPage(
+      { view: 'client-detail', clientId: 'CLT-1' },
+      [client],
+      catalog,
+      now,
+      'security_admin',
+    );
+    expect(html).toContain('Access denied');
+  });
 });

@@ -7,7 +7,7 @@ import type { AdvisorRoute } from './advisorRoute';
 import type { ClientProfile } from './clientProfile';
 import type { Product } from './product';
 
-function buildContent(route: AdvisorRoute, clients: ClientProfile[], catalog: Product[], now: Date): string {
+function buildContent(route: AdvisorRoute, clients: ClientProfile[], catalog: Product[], now: Date, role: string): string {
   if (route.view === 'roster') {
     return renderClientRoster(clients);
   }
@@ -15,21 +15,24 @@ function buildContent(route: AdvisorRoute, clients: ClientProfile[], catalog: Pr
   if (!client) {
     return renderClientDetailEmpty('Client not found', `We couldn't find a client with id '${route.clientId}'.`);
   }
-  return buildClientDetail(client, catalog, now);
+  return buildClientDetail(client, catalog, now, role);
 }
 
 /**
  * Builds the advisor dashboard's HTML for the current route. If any component fails to
- * render, returns a fallback UI instead of letting the crash propagate to the page.
+ * render, returns a fallback UI instead of letting the crash propagate to the page. `role`
+ * identifies the caller for least-privilege enforcement and defaults to 'advisor', the only
+ * role this dashboard is used by today.
  */
 export function buildAdvisorPage(
   route: AdvisorRoute,
   clients: ClientProfile[],
   catalog: Product[],
   now: Date = new Date(),
+  role: string = 'advisor',
 ): string {
   try {
-    return renderAdvisorShell(buildContent(route, clients, catalog, now));
+    return renderAdvisorShell(buildContent(route, clients, catalog, now, role));
   } catch (err) {
     const message = err instanceof Error ? err.message : 'An unexpected error occurred.';
     return renderFallbackUi(message);

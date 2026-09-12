@@ -67,4 +67,19 @@ describe('buildClientDetail', () => {
     expect(alertLog).toHaveLength(1);
     expect(alertLog[0].clientId).toBe('not-a-fictional-id');
   });
+
+  it('denies a role without view_client_data before the privacy check ever runs', () => {
+    const html = buildClientDetail(client, catalog, now, 'security_admin');
+
+    expect(html).toContain('Access denied');
+    expect(html).not.toContain('<textarea');
+    expect(getClientDataAccessLog()).toHaveLength(0);
+  });
+
+  it('rejects an unknown role as a role assignment error', () => {
+    const html = buildClientDetail(client, catalog, now, 'not-a-real-role');
+
+    expect(html).toContain('Access denied');
+    expect(html).toContain('Unknown role');
+  });
 });

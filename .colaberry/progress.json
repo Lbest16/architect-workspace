@@ -421,21 +421,37 @@
       "criteria": [
         {
           "text": "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.",
-          "passed": false
+          "passed": true
         },
         {
           "text": "Trust: The system logs all access control changes for audit purposes.",
-          "passed": false
+          "passed": true
         }
       ],
-      "files_touched": [],
-      "tests_added": [],
-      "notes": null,
-      "updated_at": null,
+      "files_touched": [
+        "src/role.ts",
+        "src/assignPermissions.ts",
+        "src/logAccessControlChange.ts",
+        "src/logAccessControlAlert.ts",
+        "src/enforceAccessControl.ts",
+        "src/buildClientDetail.ts",
+        "src/buildAdvisorPage.ts"
+      ],
+      "tests_added": [
+        "tests/role.test.ts",
+        "tests/assignPermissions.test.ts",
+        "tests/logAccessControlChange.test.ts",
+        "tests/logAccessControlAlert.test.ts",
+        "tests/enforceAccessControl.test.ts",
+        "tests/buildClientDetail.test.ts",
+        "tests/buildAdvisorPage.test.ts"
+      ],
+      "notes": "Three roles (advisor, security_admin, system_admin) each get a least-privilege permission set from ROLE_PERMISSIONS (role.ts), with client-data access and role management kept mutually exclusive on purpose. assignPermissions.ts resolves a role to its grant and returns a typed error rather than throwing for every misconfiguration case: unknown role, an unconfigured/empty role, a permission outside the master catalog, or a permission escalation attempt beyond the role's grant. enforceAccessControl.ts is the single choke point every permission check goes through: it logs every attempt (granted or denied) via logAccessControlChange.ts (the Trust criterion) and additionally raises logAccessControlAlert.ts on denial, a dedicated admin alert trail mirroring how STORY-006 separated logClientDataAccess from logSecurityAlert rather than overloading that file's clientId-shaped entries with role data. This is wired to something real, not just modeled in isolation: buildClientDetail.ts now takes a role parameter (default 'advisor', preserving existing behavior) and calls enforceAccessControl for 'view_client_data' before the STORY-006 privacy check ever runs, threaded through buildAdvisorPage.ts. 'Access control timeout' is not applicable: permission resolution is synchronous in-process code with no network/external call in the check path, the same call made for STORY-003 and STORY-005, confirmed with the user before marking this done. 'Unauthorized access', 'Role assignment error', and 'Permission escalation' are covered directly by assignPermissions.ts's typed error cases and enforceAccessControl.ts's tests. All 75 test files / 256 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines (role.ts 27, assignPermissions.ts 33, logAccessControlChange.ts 24, logAccessControlAlert.ts 18, enforceAccessControl.ts 22).",
+      "updated_at": "2026-09-11",
       "verification": {
         "state": "in_progress",
         "criteria_passed": 0,
