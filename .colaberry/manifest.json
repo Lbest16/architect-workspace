@@ -1,8 +1,10 @@
 {
-  "generated_at": "2026-09-07T04:51:38.026Z",
+  "generated_at": "2026-09-12T04:33:17.173Z",
   "plan_version": 1,
   "plan_sha256": "acb101b065580f9a6192b4069e2fa233aedc84491ab0452deb4a649a265c6986",
   "correlation_id": "76c1e3d4-f82c-493f-9962-3d0b444608c1",
+  "project_id": "6d10e2db-cd35-4825-93ce-2432c2fd2269",
+  "truth_revision": null,
   "files": [
     {
       "path": "docs/REQUIREMENTS.md",
@@ -70,7 +72,7 @@
     },
     {
       "path": "docs/stories/STORY-000.md",
-      "sha256": "b2d5f2969600798065cdf3ad6ab80375e72cf3f938479bc6becfe27bdc9e989b"
+      "sha256": "69ee68f0190c080b6ab8e76d160c12c120828c4a5011fe5c0a6487048c6bbdb9"
     },
     {
       "path": ".colaberry/plan.json",
