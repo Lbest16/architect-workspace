@@ -3,13 +3,13 @@
   "project": "Luxury Client Intelligence Agent",
   "totals": {
     "stories_total": 12,
-    "stories_verified": 7,
+    "stories_verified": 8,
     "stories_submitted": 0,
-    "stories_in_progress": 5,
+    "stories_in_progress": 4,
     "stories_not_started": 0,
     "criteria_total": 38,
-    "criteria_passed": 23,
-    "points_awarded": 469
+    "criteria_passed": 26,
+    "points_awarded": 536
   },
   "stories": [
     {
@@ -449,19 +449,15 @@
       "notes": "Three roles (advisor, security_admin, system_admin) each get a least-privilege permission set from ROLE_PERMISSIONS (role.ts), with client-data access and role management kept mutually exclusive on purpose. assignPermissions.ts resolves a role to its grant and returns a typed error rather than throwing for every misconfiguration case: unknown role, an unconfigured/empty role, a permission outside the master catalog, or a permission escalation attempt beyond the role's grant. enforceAccessControl.ts is the single choke point every permission check goes through: it logs every attempt (granted or denied) via logAccessControlChange.ts (the Trust criterion) and additionally raises logAccessControlAlert.ts on denial, a dedicated admin alert trail mirroring how STORY-006 separated logClientDataAccess from logSecurityAlert rather than overloading that file's clientId-shaped entries with role data. This is wired to something real, not just modeled in isolation: buildClientDetail.ts now takes a role parameter (default 'advisor', preserving existing behavior) and calls enforceAccessControl for 'view_client_data' before the STORY-006 privacy check ever runs, threaded through buildAdvisorPage.ts. 'Access control timeout' is not applicable: permission resolution is synchronous in-process code with no network/external call in the check path, the same call made for STORY-003 and STORY-005, confirmed with the user before marking this done. 'Unauthorized access', 'Role assignment error', and 'Permission escalation' are covered directly by assignPermissions.ts's typed error cases and enforceAccessControl.ts's tests. All 75 test files / 256 tests pass via `npm test`; `tsc --noEmit` is clean; every new src file has a matching test and stays under 200 lines (role.ts 27, assignPermissions.ts 33, logAccessControlChange.ts 24, logAccessControlAlert.ts 18, enforceAccessControl.ts 22).",
       "updated_at": "2026-09-11",
       "verification": {
-        "state": "in_progress",
-        "criteria_passed": 0,
+        "state": "verified",
+        "criteria_passed": 3,
         "criteria_total": 3,
-        "verified_at": null,
-        "commit_sha": null,
-        "commit_url": null,
-        "commit_at": null,
-        "points_awarded": null,
-        "outstanding": [
-          "Given user roles, When the system assigns permissions, Then each user has only necessary access.",
-          "Given an access control misconfiguration, When the system detects it, Then it logs and alerts the admin.",
-          "Trust: The system logs all access control changes for audit purposes."
-        ]
+        "verified_at": "2026-09-12T05:15:04.779Z",
+        "commit_sha": "c368162a22ec760736cec2a6848c34e6dca07c00",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/c368162a22ec760736cec2a6848c34e6dca07c00",
+        "commit_at": "2026-09-12T05:02:06Z",
+        "points_awarded": 67,
+        "outstanding": []
       }
     },
     {
