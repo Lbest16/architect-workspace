@@ -1,11 +1,15 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { generateMessage } from '../src/generateMessage';
 import { clearMessageAuditLog, getMessageAuditLog } from '../src/logMessageGeneration';
+import { clearDraftQueue, getQueuedDrafts } from '../src/draftQueue';
 import type { ClientProfile } from '../src/clientProfile';
 import type { Opportunity } from '../src/opportunity';
 import type { Product } from '../src/product';
 
-beforeEach(() => clearMessageAuditLog());
+beforeEach(() => {
+  clearMessageAuditLog();
+  clearDraftQueue();
+});
 
 const now = new Date('2026-08-30');
 
@@ -152,5 +156,31 @@ describe('generateMessage — AC3: logs every generated message for audit', () =
   it('does not log anything when generation fails', () => {
     generateMessage(undefined as unknown as Opportunity, client, catalog, now);
     expect(getMessageAuditLog()).toHaveLength(0);
+  });
+});
+
+describe('generateMessage — REQ-016: queues every draft for human approval', () => {
+  it('adds a successfully generated message to the approval queue as pending', () => {
+    const opportunity: Opportunity = {
+      clientId: 'CLT-1',
+      type: 're_engagement',
+      productId: null,
+      headline: 'Re-engage Isabelle Rourke',
+      score: 90,
+    };
+
+    const result = generateMessage(opportunity, client, catalog, now);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+
+    const queued = getQueuedDrafts();
+    expect(queued).toHaveLength(1);
+    expect(queued[0].status).toBe('pending');
+    expect(queued[0].message).toEqual(result.message);
+  });
+
+  it('does not queue anything when generation fails', () => {
+    generateMessage(undefined as unknown as Opportunity, client, catalog, now);
+    expect(getQueuedDrafts()).toHaveLength(0);
   });
 });

@@ -1,5 +1,6 @@
 import { findMessageTemplate } from './messageTemplates';
 import { logMessageGeneration } from './logMessageGeneration';
+import { queueDraft } from './draftQueue';
 import type { Opportunity } from './opportunity';
 import type { ClientProfile } from './clientProfile';
 import type { Product } from './product';
@@ -11,9 +12,9 @@ function fillTemplate(text: string, values: Record<string, string>): string {
 
 /**
  * Turns an identified opportunity into a personalized, editable draft message.
- * Never sends anything — callers are responsible for routing the returned draft
- * through human approval. Every successful generation is logged via
- * logMessageGeneration for audit.
+ * Never sends anything — every successful generation is logged via logMessageGeneration
+ * for audit and queued via queueDraft, so it sits pending until a human decides it
+ * through decideDraft.
  */
 export function generateMessage(
   opportunity: Opportunity,
@@ -84,6 +85,7 @@ export function generateMessage(
   };
 
   logMessageGeneration({ clientId: client.id, loggedAt: now.toISOString(), message });
+  queueDraft(message, now);
 
   return { ok: true, message };
 }

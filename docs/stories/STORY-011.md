@@ -27,8 +27,8 @@ the same criteria out of `.colaberry/progress.json`, which Claude Code keeps in
 step (see the managed block in CLAUDE.md). Ticking something you have not
 actually met only misleads you.
 
-- [ ] Given a draft message, When it is created, Then it is added to the approval queue
-- [ ] Given a draft message, When it is in the queue, Then it is not auto-sent
-- [ ] Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver
+- [x] Given a draft message, When it is created, Then it is added to the approval queue
+- [x] Given a draft message, When it is in the queue, Then it is not auto-sent
+- [x] Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver
 
 When every box above is ticked, stop and show the demo.
