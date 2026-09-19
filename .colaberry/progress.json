@@ -3,13 +3,13 @@
   "project": "Luxury Client Intelligence Agent",
   "totals": {
     "stories_total": 12,
-    "stories_verified": 8,
+    "stories_verified": 9,
     "stories_submitted": 0,
-    "stories_in_progress": 4,
+    "stories_in_progress": 3,
     "stories_not_started": 0,
     "criteria_total": 38,
-    "criteria_passed": 26,
-    "points_awarded": 536
+    "criteria_passed": 29,
+    "points_awarded": 603
   },
   "stories": [
     {
@@ -609,19 +609,15 @@
       "notes": "generateMessage.ts now calls queueDraft (draftQueue.ts) on every successful generation, so every draft lands as 'pending' in an in-memory queue the moment it's created (AC1). There is no send path anywhere in the codebase or in this queue module, so a queued draft cannot be auto-sent by construction (AC2); queueDraft is also idempotent by deriving the draft id from clientId+generatedAt, so a retried generation call cannot duplicate a queued draft. decideDraft.ts is the human-approval interface: it looks up the draft (a clean error if it's missing rather than a silent no-op), refuses to decide an already-decided draft, and only flips the draft's status via updateDraftStatus once logApprovalDecision.ts has recorded the decision and approver — a test mocks the log write throwing and confirms the draft stays 'pending' rather than the failure being swallowed, satisfying the Trust criterion and the 'audit log fails to record' failure path. 'Drafts lost in the queue' is covered by draftQueue.test.ts asserting drafts stay retrievable by id and multiple drafts don't overwrite each other. All 79 test files / 274 tests pass via `npm test`; every new src file has a matching test and stays under 200 lines (draft.ts 10, draftQueue.ts 48, logApprovalDecision.ts 23, decideDraft.ts 42).",
       "updated_at": "2026-09-14",
       "verification": {
-        "state": "in_progress",
-        "criteria_passed": 0,
+        "state": "verified",
+        "criteria_passed": 3,
         "criteria_total": 3,
-        "verified_at": null,
-        "commit_sha": null,
-        "commit_url": null,
-        "commit_at": null,
-        "points_awarded": null,
-        "outstanding": [
-          "Given a draft message, When it is created, Then it is added to the approval queue",
-          "Given a draft message, When it is in the queue, Then it is not auto-sent",
-          "Trust: Given a draft message, When it is approved or rejected, Then an audit log records the decision and the approver"
-        ]
+        "verified_at": "2026-09-14T18:59:14.373Z",
+        "commit_sha": "8e3a9d3b02b6bf65038f7818bff4db591c76dc27",
+        "commit_url": "https://github.com/Lbest16/architect-workspace/commit/8e3a9d3b02b6bf65038f7818bff4db591c76dc27",
+        "commit_at": "2026-09-14T18:38:53Z",
+        "points_awarded": 67,
+        "outstanding": []
       }
     }
   ]
