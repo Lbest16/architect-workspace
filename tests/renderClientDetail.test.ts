@@ -52,6 +52,38 @@ describe('renderClientDetail', () => {
     expect(html).toContain('No product matches.');
   });
 
+  it('labels the opportunity and the product recommendation as AI-generated', () => {
+    const html = renderClientDetail(baseVm());
+    const aiBadgeCount = html.split('data-ai-generated="true"').length - 1;
+    expect(aiBadgeCount).toBe(2);
+
+    const opportunitySection = html.slice(html.indexOf('<h3>Opportunity'), html.indexOf('Recommended product'));
+    expect(opportunitySection).toContain('AI-generated');
+
+    const recommendationSection = html.slice(html.indexOf('<h3>Recommended product'));
+    expect(recommendationSection).toContain('AI-generated');
+  });
+
+  it('does not label a failed recommendation attempt as AI-generated, since nothing was generated', () => {
+    const html = renderClientDetail(baseVm({ recommendation: null, recommendationError: 'No product matches.' }));
+    const recommendationSection = html.slice(html.indexOf('<h3>Recommended product'));
+    expect(recommendationSection).not.toContain('AI-generated');
+  });
+
+  it('never marks factual client or product data as AI-generated', () => {
+    const html = renderClientDetail(baseVm());
+
+    const clientHeader = html.slice(html.indexOf('<h2>'), html.indexOf('<section'));
+    expect(clientHeader).toContain('Isabelle Rourke');
+    expect(clientHeader).toContain('CLT-1');
+    expect(clientHeader).not.toContain('AI-generated');
+
+    const recommendationSection = html.slice(html.indexOf('<h3>Recommended product'));
+    expect(recommendationSection).toContain('Quilted Flap Bag');
+    const productNameLine = recommendationSection.split('\n').find((line) => line.includes('Quilted Flap Bag'));
+    expect(productNameLine).not.toContain('AI-generated');
+  });
+
   it('shows the message error when no draft could be generated', () => {
     const html = renderClientDetail(baseVm({ message: null, messageError: 'No template available.' }));
     expect(html).toContain('No template available.');

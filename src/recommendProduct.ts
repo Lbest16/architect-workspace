@@ -87,6 +87,7 @@ export function recommendProduct(
     loggedAt: now.toISOString(),
     recommendation,
     reasoning: best.reasoning,
+    source: 'ai',
   });
 
   return { ok: true, recommendation, reasoning: best.reasoning };

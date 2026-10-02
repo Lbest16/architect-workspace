@@ -6,6 +6,7 @@ export interface ProductRecommendationAuditEntry {
   loggedAt: string;
   recommendation: ProductRecommendation;
   reasoning: ReasoningEntry[];
+  source: 'ai';
 }
 
 const auditLog: ProductRecommendationAuditEntry[] = [];

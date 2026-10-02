@@ -24,6 +24,7 @@ describe('logProductRecommendation', () => {
         score: 85,
       },
       reasoning: [{ factor: 'house_match', detail: "Matches preferred house 'Chanel'.", weight: 40 }],
+      source: 'ai',
     });
 
     const log = getProductRecommendationAuditLog();
@@ -32,18 +33,32 @@ describe('logProductRecommendation', () => {
     expect(log[0].reasoning[0].factor).toBe('house_match');
   });
 
+  it('records the entry source as ai-generated', () => {
+    logProductRecommendation({
+      clientId: 'CLT-1',
+      loggedAt: '2026-08-30T00:00:00.000Z',
+      recommendation: { clientId: 'CLT-1', opportunityType: 'new_arrival_match', productId: 'PRD-MATCH', productName: 'Quilted Flap Bag', score: 85 },
+      reasoning: [],
+      source: 'ai',
+    });
+
+    expect(getProductRecommendationAuditLog()[0].source).toBe('ai');
+  });
+
   it('accumulates one entry per call', () => {
     logProductRecommendation({
       clientId: 'A',
       loggedAt: 't',
       recommendation: { clientId: 'A', opportunityType: 're_engagement', productId: 'PRD-1', productName: 'p', score: 1 },
       reasoning: [],
+      source: 'ai',
     });
     logProductRecommendation({
       clientId: 'B',
       loggedAt: 't',
       recommendation: { clientId: 'B', opportunityType: 're_engagement', productId: 'PRD-2', productName: 'p', score: 1 },
       reasoning: [],
+      source: 'ai',
     });
 
     expect(getProductRecommendationAuditLog()).toHaveLength(2);
@@ -55,6 +70,7 @@ describe('logProductRecommendation', () => {
       loggedAt: 't',
       recommendation: { clientId: 'A', opportunityType: 're_engagement', productId: 'PRD-1', productName: 'p', score: 1 },
       reasoning: [],
+      source: 'ai',
     });
     clearProductRecommendationAuditLog();
     expect(getProductRecommendationAuditLog()).toHaveLength(0);

@@ -13,11 +13,13 @@ export interface ClientDetailVm {
   messageError: string | null;
 }
 
+const AI_GENERATED_BADGE = '<span class="ai-generated-badge" data-ai-generated="true">AI-generated</span>';
+
 function renderRecommendation(vm: ClientDetailVm): string {
   if (vm.recommendation) {
     return `
       <section class="client-detail__section">
-        <h3>Recommended product</h3>
+        <h3>Recommended product ${AI_GENERATED_BADGE}</h3>
         <p>${escapeHtml(vm.recommendation.productName)} &middot; score ${vm.recommendation.score}</p>
       </section>`;
   }
@@ -58,7 +60,7 @@ export function renderClientDetail(vm: ClientDetailVm): string {
       <p class="client-detail__meta">${escapeHtml(vm.client.id)} &middot; last contacted ${escapeHtml(vm.client.lastContactedOn)}</p>
 
       <section class="client-detail__section">
-        <h3>Opportunity</h3>
+        <h3>Opportunity ${AI_GENERATED_BADGE}</h3>
         <p>${escapeHtml(vm.opportunity.headline)}</p>
       </section>
 

@@ -39,6 +39,7 @@ export function identifyOpportunity(rawClient: unknown, catalog: Product[], now:
     loggedAt: now.toISOString(),
     opportunity: strongest.opportunity,
     reasoning: strongest.reasoning,
+    source: 'ai',
   });
 
   return { ok: true, opportunity: strongest.opportunity, reasoning: strongest.reasoning };

@@ -72,6 +72,7 @@ describe('identifyOpportunity — AC3: logs the reasoning for each opportunity i
     expect(log[0].clientId).toBe('CLT-1');
     expect(log[0].reasoning).toEqual(result.reasoning);
     expect(log[0].opportunity).toEqual(result.opportunity);
+    expect(log[0].source).toBe('ai');
   });
 
   it('does not log anything when identification fails', () => {

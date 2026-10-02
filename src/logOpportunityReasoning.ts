@@ -5,6 +5,7 @@ export interface OpportunityAuditEntry {
   loggedAt: string;
   opportunity: Opportunity;
   reasoning: ReasoningEntry[];
+  source: 'ai';
 }
 
 const auditLog: OpportunityAuditEntry[] = [];
